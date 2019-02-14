@@ -525,7 +525,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/01/26/understanding-es6-3/" class="post-title-link" itemprop="url">understanding-es6-3</a>
+                <a href="/2019/01/26/understanding-es6-3/" class="post-title-link" itemprop="url">ES6-Function</a>
               
             
           </h1>
@@ -550,12 +550,24 @@
                 
               
 
-              <time title="Created: 2019-01-26 14:08:30 / Modified: 18:25:07" itemprop="dateCreated datePublished" datetime="2019-01-26T14:08:30+08:00">2019-01-26</time>
+              <time title="Created: 2019-01-26 14:08:30" itemprop="dateCreated datePublished" datetime="2019-01-26T14:08:30+08:00">2019-01-26</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-14 16:51:21" itemprop="dateModified" datetime="2019-02-14T16:51:21+08:00">2019-02-14</time>
               
             
           </span>
@@ -590,7 +602,30 @@
       
         
           
-            
+            <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="函数的形参带默认值"><a href="#函数的形参带默认值" class="headerlink" title="函数的形参带默认值"></a>函数的形参带默认值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="comment">//....函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当函数调用时传入的实参是undefined或不传递时，会取默认值；<strong>null</strong>值是有效值，不会取默认值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout:'</span>,timeout)</span><br><span class="line">&#125;</span><br><span class="line">demo(<span class="string">'url'</span>,<span class="literal">null</span>) <span class="comment">// timeout: null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout:'</span>,timeout)</span><br><span class="line">&#125;</span><br><span class="line">demo(<span class="string">'url'</span>,<span class="literal">undefined</span>) <span class="comment">// timeout: 500</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>函数形参默认值可以为表达式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value+<span class="number">5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">first, second=getValue(first</span>))</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>)) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>)) <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数形参区域有自己独立的块级作用域及暂时性死区，与函数体的作用域相分离，所以函数形参区域不能访问函数体中的变量并且由于暂时性死区的原因，不能访问没初始化的变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value+<span class="number">5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">second=getValue(first</span>), <span class="title">first</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="literal">undefined</span>,<span class="number">2</span>)) <span class="comment">// Uncaught ReferenceError: first is not defined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><p>在函数形参的最后一位，使用<b>…具名参数名字</b> 表示除了其他前面的参数，剩下的参数都存放在这个具名参数的<strong>数组</strong>中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">first, ...rest</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// rest为数组</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="函数构造器的增强能力"><a href="#函数构造器的增强能力" class="headerlink" title="函数构造器的增强能力"></a>函数构造器的增强能力</h4><p>使用Function构造器动态创建函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'first'</span>,<span class="string">'second'</span>,<span class="string">'return first + second'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>)) <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用默认参数</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'first'</span>,<span class="string">'second = first'</span>,<span class="string">'return first + second'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>)) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h4><p>在数组前面加上…，将数组分割成单个参数依次传入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">-10</span>,<span class="number">-23</span>,<span class="number">0</span>,<span class="number">12</span>]</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(...arr)) <span class="comment">// 12</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h4><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>常用来替代匿名函数表达式</li>
+<li>箭头函数中没有this绑定，内部继承外部函数的this指向，因此使用call()\apply()\bind()不能修改内部的this指向</li>
+<li>箭头函数不能用作构造器，所以不能使用new来定义新的类型、没有原型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ArrowType = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> ArrowType() <span class="comment">// ArrowType is not a constructor</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>单一参数，函数体只包含单一表达式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getValue = <span class="function"><span class="params">value</span> =&gt;</span> value </span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="keyword">var</span> getValue = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多个参数，函数体只包含单一表达式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">first, second</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first + second</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多个参数，函数体包含多个表达式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> compare = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> result = num1 &gt; num2</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>花括号表示函数体，如果想返回一个对象，则使用()将对象括起来<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;<span class="attr">a</span>:<span class="number">123</span>, <span class="attr">b</span>:<span class="number">234</span>&#125;)</span><br><span class="line"><span class="comment">//使用()括号包起来，来告诉js引擎这是返回一个对象字面量</span></span><br></pre></td></tr></table></figure></p>
+
           
         
       
@@ -708,7 +743,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-26 12:17:20" itemprop="dateModified" datetime="2019-01-26T12:17:20+08:00">2019-01-26</time>
+                <time title="Modified: 2019-02-14 16:53:15" itemprop="dateModified" datetime="2019-02-14T16:53:15+08:00">2019-02-14</time>
               
             
           </span>
@@ -750,7 +785,7 @@
 </ul>
 <p>三个方法均返回bool值，表示子字符串是否存在，且传入的参数必须为字符串，不能是正则表达式<br>如果希望找到对应出现的确定位置，则仍需要使用已有的indexOf()、lastIndexOf()方法</p>
 <h4 id="repeat"><a href="#repeat" class="headerlink" title="repeat()"></a>repeat()</h4><p>快速生成重复性字符串，函数中的参数表示重复的次数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"x"</span>.repeat(<span class="number">3</span>));         <span class="comment">// "xxx"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello"</span>.repeat(<span class="number">2</span>));     <span class="comment">// "hellohello"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"abc"</span>.repeat(<span class="number">4</span>));       <span class="comment">// "abcabcabcabc"</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量 "></a>模板字面量 <code></code></h3><ul>
+<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量 ``"></a>模板字面量 ``</h3><ul>
 <li>多行字符串：针对多行字符串的形式概念；</li>
 <li>基本的字符串格式化：将字符串部分替换为已存在的变量值的能力；</li>
 <li>HTML 转义：能转换字符串以便将其安全插入到 HTML 中的能力</li>
