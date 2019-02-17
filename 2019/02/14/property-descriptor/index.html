@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
 <meta property="og:description" content="属性描述符我们定义的对象，对应的每一个属性都对应一个‘属性描述符’对象，用来描述该属性的一些特性：属性描述符有两种形式：数据描述符或存取描述符。数据描述符是一个具有值的属性，该值可能是可写的，也可能不是可写的。存取描述符是由getter-setter函数对描述的属性。属性描述符必须是这两种形式之一；且不能同时是两者  数据描述符独有的： value：改属性的值 writable：为true表示该属">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-15T09:16:38.989Z">
+<meta property="og:updated_time" content="2019-02-15T13:50:36.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="property-descriptor">
 <meta name="twitter:description" content="属性描述符我们定义的对象，对应的每一个属性都对应一个‘属性描述符’对象，用来描述该属性的一些特性：属性描述符有两种形式：数据描述符或存取描述符。数据描述符是一个具有值的属性，该值可能是可写的，也可能不是可写的。存取描述符是由getter-setter函数对描述的属性。属性描述符必须是这两种形式之一；且不能同时是两者  数据描述符独有的： value：改属性的值 writable：为true表示该属">
@@ -382,7 +382,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-15 17:16:38" itemprop="dateModified" datetime="2019-02-15T17:16:38+08:00">2019-02-15</time>
+                <time title="Modified: 2019-02-15 21:50:36" itemprop="dateModified" datetime="2019-02-15T21:50:36+08:00">2019-02-15</time>
               
             
           </span>
@@ -439,9 +439,9 @@
 <ul>
 <li>obj：要在其上定义属性的对象。</li>
 <li>prop：要定义或修改的属性的名称。</li>
-<li>descriptor：object,将被定义或修改的属性描述符<br>当描述符中省略某些字段时，这些字段将使用它们的默认值。拥有布尔值的字段的默认值都是false。<br>value，get和set字段的默认值为undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bValue, o=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123;</span><br><span class="line">    set : <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">        bValue = newValue;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//undefined  没有显示定义getter函数，因此默认值为undefined，所以使用o.b调用时为undefined</span></span><br><span class="line">o.b= <span class="number">11</span></span><br><span class="line"><span class="built_in">console</span>.log(bValue) <span class="comment">// 11 给属性赋值时，调用了setter函数，将值赋值给了bValue</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>descriptor：object,将被定义或修改的属性描述符<br>当描述符中省略某些字段时，这些字段将使用它们的默认值。拥有布尔值的字段的默认值都是false。<br>value，get和set字段的默认值为undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符</li>
 </ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bValue, o=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123;</span><br><span class="line">    set : <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">        bValue = newValue;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//undefined  没有显示定义getter函数，因此默认值为undefined，所以使用o.b调用时为undefined</span></span><br><span class="line">o.b= <span class="number">11</span></span><br><span class="line"><span class="built_in">console</span>.log(bValue) <span class="comment">// 11 给属性赋值时，调用了setter函数，将值赋值给了bValue</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123;</span><br><span class="line">    get : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">22</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//22</span></span><br><span class="line">o.b = <span class="number">123</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//22 因为没有显示定义setter，所以默认值为undefined，赋值动作无效，因此o.b不会变化</span></span><br></pre></td></tr></table></figure>
 <h4 id="修改属性"><a href="#修改属性" class="headerlink" title="修改属性"></a>修改属性</h4><ol>
 <li><p>Writable 属性<br>当writable属性设置为false时，该属性被称为“不可写”</p>
@@ -495,6 +495,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/17/browser-process/" rel="prev" title="浏览器的线程与进程">
+                浏览器的线程与进程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -564,7 +568,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
