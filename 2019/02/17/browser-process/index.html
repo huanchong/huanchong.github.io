@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g09k86tal4j20ui0lm7ea.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g09keeue0tj20ui0lmgw9.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g09ker79jkj20ui0lmtjg.jpg">
-<meta property="og:updated_time" content="2019-02-17T09:54:28.821Z">
+<meta property="og:updated_time" content="2019-02-18T06:43:10.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的线程与进程">
 <meta name="twitter:description" content="背景作为前端工程师，我们的程序的大多数场景都是运行在浏览器环境中，所以今天也想聊一下浏览器中渲染我们页面的一些自己概念和原理 知识点进程和线程是操作系统里的知识，了解了进程和线程的概念，有助于理解浏览器的运行机制 进程进程是操作系统进行资源分配和调度的最小单位，电脑中每一个软件的运行都是一个进程，每个进程都有独立的一块内存，各个进程之间相互隔离。如果把cpu比作一个工厂的话，进程就相当于一个个独立">
@@ -369,12 +369,24 @@
                 
               
 
-              <time title="Created: 2019-02-17 13:05:51 / Modified: 17:54:28" itemprop="dateCreated datePublished" datetime="2019-02-17T13:05:51+08:00">2019-02-17</time>
+              <time title="Created: 2019-02-17 13:05:51" itemprop="dateCreated datePublished" datetime="2019-02-17T13:05:51+08:00">2019-02-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-18 14:43:10" itemprop="dateModified" datetime="2019-02-18T14:43:10+08:00">2019-02-18</time>
               
             
           </span>
@@ -421,9 +433,9 @@
 </ul>
 <h3 id="浏览器的多进程架构"><a href="#浏览器的多进程架构" class="headerlink" title="浏览器的多进程架构"></a>浏览器的多进程架构</h3><p>在”更多工具” -&gt; “任务管理器”中可以查看当前浏览器中运行的进程<br>我们可以看到的但不限于以下几种：</p>
 <ul>
-<li>Browser主进程：协调、主控作用</li>
-<li>GPU进程：用于硬件加速，3D绘制<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09k86tal4j20ui0lm7ea.jpg" alt=""></li>
-<li>渲染进程：每个tab页的展示<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09keeue0tj20ui0lmgw9.jpg" alt=""></li>
+<li>Browser主进程：协调、主控作用(浏览器的主进程，负责浏览器界面的显示、各个页面的管理、是所有其他类型进程的祖先、负责它们的创建和销毁等工作，它有且仅有一个)</li>
+<li>GPU进程：用于硬件加速，3D绘制(当且仅当 GPU 硬件加速打开的时候才会被创建，主要用于对 3D 图形加速调用的实现)<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09k86tal4j20ui0lm7ea.jpg" alt=""></li>
+<li>Renderer渲染进程：每个tab页的展示<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09keeue0tj20ui0lmgw9.jpg" alt=""></li>
 <li>第三方扩展插件进程<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09ker79jkj20ui0lmtjg.jpg" alt=""></li>
 </ul>
 <p><strong>下面也主要介绍渲染进程：</strong><br>chrome浏览器每个tab页都是一个进程，使用多个进程来隔离页面，这样做的好处就是每个tab页互不影响，当一个tab崩溃的时候不会影响其他网页，同时进程之间是不共享资源和地址空间的，安全性也能得到更多的保障</p>
@@ -505,6 +517,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/02/19/understanding-es6-5/" rel="prev" title="ES6-Destructuring">
+                ES6-Destructuring <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -573,7 +589,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
