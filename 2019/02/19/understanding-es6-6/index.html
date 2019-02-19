@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="对对象与数组的解构意义使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素 对象解构 带默认值的解构 12345let person = &amp;#123;    name: &apos;Tom&apos;,    age: &apos;20&apos;&amp;#125;let &amp;#123; name = &apos;Eric&apos;, age&amp;#125; = person  赋值给本地不同的变量名 1234567let person = &amp;#123;">
+  <meta name="description" content="意义Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全 使用 使用全局Symbol函数创建symbol类型1234567">
 <meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6-Destructuring">
-<meta property="og:url" content="http://huanchong.top/2019/02/19/understanding-es6-5/index.html">
+<meta property="og:title" content="ES6-Symbol类型">
+<meta property="og:url" content="http://huanchong.top/2019/02/19/understanding-es6-6/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="对对象与数组的解构意义使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素 对象解构 带默认值的解构 12345let person = &amp;#123;    name: &apos;Tom&apos;,    age: &apos;20&apos;&amp;#125;let &amp;#123; name = &apos;Eric&apos;, age&amp;#125; = person  赋值给本地不同的变量名 1234567let person = &amp;#123;">
+<meta property="og:description" content="意义Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全 使用 使用全局Symbol函数创建symbol类型1234567">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-19T12:42:12.651Z">
+<meta property="og:updated_time" content="2019-02-19T13:58:03.667Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6-Destructuring">
-<meta name="twitter:description" content="对对象与数组的解构意义使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素 对象解构 带默认值的解构 12345let person = &amp;#123;    name: &apos;Tom&apos;,    age: &apos;20&apos;&amp;#125;let &amp;#123; name = &apos;Eric&apos;, age&amp;#125; = person  赋值给本地不同的变量名 1234567let person = &amp;#123;">
+<meta name="twitter:title" content="ES6-Symbol类型">
+<meta name="twitter:description" content="意义Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全 使用 使用全局Symbol函数创建symbol类型1234567">
 
 
 
 
 
 
-  <link rel="canonical" href="http://huanchong.top/2019/02/19/understanding-es6-5/"/>
+  <link rel="canonical" href="http://huanchong.top/2019/02/19/understanding-es6-6/"/>
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>ES6-Destructuring | Huanchong's Blog</title>
+  <title>ES6-Symbol类型 | Huanchong's Blog</title>
   
 
 
@@ -323,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/02/19/understanding-es6-5/"/>
+    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/02/19/understanding-es6-6/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanchong Zhang"/>
@@ -340,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6-Destructuring
+          <h1 class="post-title" itemprop="name headline">ES6-Symbol类型
 
               
             
@@ -366,7 +366,7 @@
                 
               
 
-              <time title="Created: 2019-02-19 16:55:29 / Modified: 20:42:12" itemprop="dateCreated datePublished" datetime="2019-02-19T16:55:29+08:00">2019-02-19</time>
+              <time title="Created: 2019-02-19 21:32:28 / Modified: 21:58:03" itemprop="dateCreated datePublished" datetime="2019-02-19T21:32:28+08:00">2019-02-19</time>
             
 
             
@@ -404,29 +404,17 @@
       
 
       
-        <h3 id="对对象与数组的解构"><a href="#对对象与数组的解构" class="headerlink" title="对对象与数组的解构"></a>对对象与数组的解构</h3><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><p>使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素</p>
-<h4 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h4><ol>
-<li><p>带默认值的解构</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">'Tom'</span>,</span><br><span class="line">    age: <span class="string">'20'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> &#123; name = <span class="string">'Eric'</span>, age&#125; = person</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>赋值给本地不同的变量名</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">'Tom'</span>,</span><br><span class="line">    age: <span class="string">'20'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">name</span>:firstName = <span class="string">'Eric'</span>, <span class="attr">age</span>:ageOld&#125; = person <span class="comment">// 冒号前面的表示要检索的对象的属性名；冒号后面的表示要赋值的变量名</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName) <span class="comment">// Tom</span></span><br><span class="line"><span class="built_in">console</span>.log(ageOld) <span class="comment">// 20</span></span><br></pre></td></tr></table></figure>
+        <h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>使用全局Symbol函数创建symbol类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>) <span class="comment">//传入的参数作为symbol变量的描述</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line">person[firstName] = <span class="string">'Tom'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName]) <span class="comment">// 'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName) <span class="comment">// Symbol('first name') symbol变量的描述信息存储在内部属性[[Description]]中，只有显式或隐式的调用toSting()时，会被读取到，console.log()会隐式的调用toString()方法，所以才打印出来了；String(firstName) 也会隐式调用toSting()、firstName.toString()则是显式调用</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'first name'</span> <span class="keyword">in</span> person) <span class="comment">// false  'first name'只是symbol变量的描述信息而已</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="数组解构"><a href="#数组解构" class="headerlink" title="数组解构"></a>数组解构</h4><ol>
-<li><p>按照位置依次解构赋值,可以赋默认值</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color = [<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>]</span><br><span class="line"><span class="keyword">let</span> [first, second=<span class="string">'yellow'</span>] = color</span><br><span class="line"><span class="built_in">console</span>.log(first) <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(second)<span class="comment">// green</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [ , , third] = color</span><br><span class="line"><span class="built_in">console</span>.log(third) <span class="comment">// blue</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>互换变量名(无需再借助中间变量)</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a= <span class="number">1</span>, </span><br><span class="line">    b= <span class="number">2</span>;</span><br><span class="line">[a, b] = [b, a]</span><br><span class="line"><span class="built_in">console</span>.log(a,b) <span class="comment">//2,1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用扩展运算符完成剩余项赋值</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color = [<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>]</span><br><span class="line"><span class="keyword">let</span> [first, ...restColor] = color <span class="comment">//剩余项必须放在最后面</span></span><br><span class="line"><span class="built_in">console</span>.log(first) <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(restColor)<span class="comment">// ["green", "blue"]</span></span><br></pre></td></tr></table></figure>
-<p>常用的应用：数组的赋值 （传统的方法是使用 .concat()函数）</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color = [<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>]</span><br><span class="line"><span class="keyword">let</span> [...colorArr] = color</span><br><span class="line"><span class="built_in">console</span>.log(colorArr) <span class="comment">// ["red", "green", "blue"]</span></span><br></pre></td></tr></table></figure>
-</li>
+<p>注：<strong>symbol变量最大的特点是不会被转换成字符串和数字类型，所以也就保证了symbol值的唯一性和安全性</strong></p>
+<ol start="2">
+<li>ES6新定义的Object.getOwnPropertySymbols()检索symbol类型的对象属性<br>Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性</li>
 </ol>
-<h4 id="函数参数解构"><a href="#函数参数解构" class="headerlink" title="函数参数解构"></a>函数参数解构</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setcookie</span>(<span class="params">name, value, &#123; secure, path, domain, expires= <span class="number">500</span> &#125;</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 但这样写有个问题，第三个解构的实参必须要传一个对象，否则解构的&#123; secure, path, domain, expires= 500 &#125; = undefined 会报错</span></span><br><span class="line">setcookie(<span class="string">'load'</span>,<span class="string">'123'</span>) <span class="comment">//报错</span></span><br><span class="line"></span><br><span class="line">更完善的写法是函数参数赋默认值</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setcookie</span>(<span class="params">name, value, &#123; secure, path, domain, expires= <span class="number">500</span> &#125; = &#123;&#125;</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>由于目前使用的场景还不多，所以这里不赘述过多，感兴趣的同学可以去网上查查更多的用法</p>
+
       
     </div>
 
@@ -462,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/17/browser-process/" rel="next" title="浏览器的线程与进程">
-                <i class="fa fa-chevron-left"></i> 浏览器的线程与进程
+              <a href="/2019/02/19/understanding-es6-5/" rel="next" title="ES6-Destructuring">
+                <i class="fa fa-chevron-left"></i> ES6-Destructuring
               </a>
             
           </div>
@@ -471,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/19/understanding-es6-6/" rel="prev" title="ES6-Symbol类型">
-                ES6-Symbol类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -631,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对对象与数组的解构"><span class="nav-number">1.</span> <span class="nav-text">对对象与数组的解构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#意义"><span class="nav-number">1.1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象解构"><span class="nav-number">1.2.</span> <span class="nav-text">对象解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组解构"><span class="nav-number">1.3.</span> <span class="nav-text">数组解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数参数解构"><span class="nav-number">1.4.</span> <span class="nav-text">函数参数解构</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#意义"><span class="nav-number">1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结尾"><span class="nav-number">3.</span> <span class="nav-text">结尾</span></a></li></ol></div>
             
 
           </div>
