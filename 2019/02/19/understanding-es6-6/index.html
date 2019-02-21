@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
 <meta property="og:description" content="意义Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全 使用 使用全局Symbol函数创建symbol类型1234567">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-19T13:58:03.667Z">
+<meta property="og:updated_time" content="2019-02-20T12:55:28.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Symbol类型">
 <meta name="twitter:description" content="意义Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全 使用 使用全局Symbol函数创建symbol类型1234567">
@@ -366,12 +366,24 @@
                 
               
 
-              <time title="Created: 2019-02-19 21:32:28 / Modified: 21:58:03" itemprop="dateCreated datePublished" datetime="2019-02-19T21:32:28+08:00">2019-02-19</time>
+              <time title="Created: 2019-02-19 21:32:28" itemprop="dateCreated datePublished" datetime="2019-02-19T21:32:28+08:00">2019-02-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-20 20:55:28" itemprop="dateModified" datetime="2019-02-20T20:55:28+08:00">2019-02-20</time>
               
             
           </span>
@@ -406,7 +418,7 @@
       
         <h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li>使用全局Symbol函数创建symbol类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>) <span class="comment">//传入的参数作为symbol变量的描述</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line">person[firstName] = <span class="string">'Tom'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName]) <span class="comment">// 'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName) <span class="comment">// Symbol('first name') symbol变量的描述信息存储在内部属性[[Description]]中，只有显式或隐式的调用toSting()时，会被读取到，console.log()会隐式的调用toString()方法，所以才打印出来了；String(firstName) 也会隐式调用toSting()、firstName.toString()则是显式调用</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'first name'</span> <span class="keyword">in</span> person) <span class="comment">// false  'first name'只是symbol变量的描述信息而已</span></span><br></pre></td></tr></table></figure>
+<li>使用全局Symbol函数创建symbol类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>) <span class="comment">//传入的参数作为symbol变量的描述</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line">person[firstName] = <span class="string">'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(person) <span class="comment">// &#123;Symbol(first name): "Tom"&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName]) <span class="comment">// 'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName) <span class="comment">// Symbol('first name') symbol变量的描述信息存储在内部属性[[Description]]中，只有显式或隐式的调用toSting()时，会被读取到，console.log()会隐式的调用toString()方法，所以才打印出来了；String(firstName) 也会隐式调用toSting()、firstName.toString()则是显式调用</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'first name'</span> <span class="keyword">in</span> person) <span class="comment">// false  'first name'只是symbol变量的描述信息而已</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>注：<strong>symbol变量最大的特点是不会被转换成字符串和数字类型，所以也就保证了symbol值的唯一性和安全性</strong></p>
@@ -532,7 +544,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
