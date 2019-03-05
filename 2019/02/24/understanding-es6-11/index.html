@@ -96,18 +96,20 @@
 
 
 
-  <meta name="description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pro">
+  <meta name="description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pr">
 <meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-Promise">
 <meta property="og:url" content="http://huanchong.top/2019/02/24/understanding-es6-11/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pro">
+<meta property="og:description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pr">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-24T09:09:59.468Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
+<meta property="og:updated_time" content="2019-03-04T07:11:38.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Promise">
-<meta name="twitter:description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pro">
+<meta name="twitter:description" content="Promise与异步编程创建一个待执行状态的Promisenew Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用12345678910111213141516171819202122let fs = require(&apos;fs&apos;)function readFile(fileName)&amp;#123;    return new Pr">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 
 
 
@@ -366,12 +368,24 @@
                 
               
 
-              <time title="Created: 2019-02-24 15:06:44 / Modified: 17:09:59" itemprop="dateCreated datePublished" datetime="2019-02-24T15:06:44+08:00">2019-02-24</time>
+              <time title="Created: 2019-02-24 15:06:44" itemprop="dateCreated datePublished" datetime="2019-02-24T15:06:44+08:00">2019-02-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:38" itemprop="dateModified" datetime="2019-03-04T15:11:38+08:00">2019-03-04</time>
               
             
           </span>
@@ -404,7 +418,8 @@
       
 
       
-        <h3 id="Promise与异步编程"><a href="#Promise与异步编程" class="headerlink" title="Promise与异步编程"></a>Promise与异步编程</h3><h4 id="创建一个待执行状态的Promise"><a href="#创建一个待执行状态的Promise" class="headerlink" title="创建一个待执行状态的Promise"></a>创建一个待执行状态的Promise</h4><p>new Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">fileName</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//异步操作</span></span><br><span class="line">        fs.readFile(fileName, (err, contents)=&gt; &#123;</span><br><span class="line">            <span class="comment">//读取错误时</span></span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                reject(err)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//读取成功时</span></span><br><span class="line">            resolve(contents)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> file = readFile(<span class="string">'readme.txt'</span>)</span><br><span class="line"><span class="comment">// 同时监听成功或失败</span></span><br><span class="line">file.then(<span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+        <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="Promise与异步编程"><a href="#Promise与异步编程" class="headerlink" title="Promise与异步编程"></a>Promise与异步编程</h3><h4 id="创建一个待执行状态的Promise"><a href="#创建一个待执行状态的Promise" class="headerlink" title="创建一个待执行状态的Promise"></a>创建一个待执行状态的Promise</h4><p>new Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">fileName</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//异步操作</span></span><br><span class="line">        fs.readFile(fileName, (err, contents)=&gt; &#123;</span><br><span class="line">            <span class="comment">//读取错误时</span></span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                reject(err)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//读取成功时</span></span><br><span class="line">            resolve(contents)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> file = readFile(<span class="string">'readme.txt'</span>)</span><br><span class="line"><span class="comment">// 同时监听成功或失败</span></span><br><span class="line">file.then(<span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <h4 id="直接返回一个已执行状态的Promise对象"><a href="#直接返回一个已执行状态的Promise对象" class="headerlink" title="直接返回一个已执行状态的Promise对象"></a>直接返回一个已执行状态的Promise对象</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line"><span class="built_in">Promise</span>.reject()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>传递给Promise.resolve()的参数，如果是一个Promise对象，则会原样返回，如果不是一个Promise对象，针对非Promise的thenable对象，会做进一步包装，将其转换成Promise对象再返回（基本类型的值也会被自动转换成Promise对象）</li>

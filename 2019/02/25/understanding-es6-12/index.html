@@ -96,20 +96,21 @@
 
 
 
-  <meta name="description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expor">
+  <meta name="description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expo">
 <meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-Modules">
 <meta property="og:url" content="http://huanchong.top/2019/02/25/understanding-es6-12/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expor">
+<meta property="og:description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expo">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0iwdd6h68j227m0j642z.jpg">
-<meta property="og:updated_time" content="2019-02-25T11:37:24.955Z">
+<meta property="og:updated_time" content="2019-03-04T07:11:45.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Modules">
-<meta name="twitter:description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expor">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0iwdd6h68j227m0j642z.jpg">
+<meta name="twitter:description" content="模块的导入导出 导出export 12345678export let a = 111 //导出基本类型export function add()&amp;#123;&amp;#125; // 导出类export class Rectangle&amp;#123;&amp;#125; // 导出函数function multiply(num1, num2)&amp;#123;    return num1*num2&amp;#125;expo">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 
 
 
@@ -368,12 +369,24 @@
                 
               
 
-              <time title="Created: 2019-02-25 14:44:01 / Modified: 19:37:24" itemprop="dateCreated datePublished" datetime="2019-02-25T14:44:01+08:00">2019-02-25</time>
+              <time title="Created: 2019-02-25 14:44:01" itemprop="dateCreated datePublished" datetime="2019-02-25T14:44:01+08:00">2019-02-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:45" itemprop="dateModified" datetime="2019-03-04T15:11:45+08:00">2019-03-04</time>
               
             
           </span>
@@ -406,7 +419,8 @@
       
 
       
-        <h3 id="模块的导入导出"><a href="#模块的导入导出" class="headerlink" title="模块的导入导出"></a>模块的导入导出</h3><ol>
+        <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="模块的导入导出"><a href="#模块的导入导出" class="headerlink" title="模块的导入导出"></a>模块的导入导出</h3><ol>
 <li><p>导出export</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> a = <span class="number">111</span> <span class="comment">//导出基本类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// 导出类</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;&#125; <span class="comment">// 导出函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">num1, num2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num1*num2</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; multiply &#125;</span><br></pre></td></tr></table></figure>
 </li>

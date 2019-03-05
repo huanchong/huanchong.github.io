@@ -96,17 +96,20 @@
 
 
 
-  <meta name="description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;#">
+  <meta name="description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;">
+<meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-Class">
 <meta property="og:url" content="http://huanchong.top/2019/02/22/understanding-es6-9/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;#">
+<meta property="og:description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-24T05:41:38.878Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
+<meta property="og:updated_time" content="2019-03-04T07:11:24.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Class">
-<meta name="twitter:description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;#">
+<meta name="twitter:description" content="背景在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类 类的介绍类的声明ES6之前的写法：称为自定义类型123456function Person(name)&amp;#123;    this.name = name&amp;#125;Person.prototype.sayName = function()&amp;#123;    return this.name&amp;">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 
 
 
@@ -382,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-24 13:41:38" itemprop="dateModified" datetime="2019-02-24T13:41:38+08:00">2019-02-24</time>
+                <time title="Modified: 2019-03-04 15:11:24" itemprop="dateModified" datetime="2019-03-04T15:11:24+08:00">2019-03-04</time>
               
             
           </span>
@@ -415,7 +418,8 @@
       
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类</p>
+        <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类</p>
 <h3 id="类的介绍"><a href="#类的介绍" class="headerlink" title="类的介绍"></a>类的介绍</h3><h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><h5 id="ES6之前的写法：称为自定义类型"><a href="#ES6之前的写法：称为自定义类型" class="headerlink" title="ES6之前的写法：称为自定义类型"></a>ES6之前的写法：称为自定义类型</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="ES6的写法："><a href="#ES6的写法：" class="headerlink" title="ES6的写法："></a>ES6的写法：</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name <span class="comment">//自有属性</span></span><br><span class="line">    &#125;</span><br><span class="line">    sayName()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">'Tom'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(person.sayName()) <span class="comment">//Tom</span></span><br><span class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> Person) <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> <span class="built_in">Object</span>) <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person) <span class="comment">//function</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person.sayName) <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person.prototype.sayName) <span class="comment">//function</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -474,6 +478,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
       
 
       

@@ -96,20 +96,21 @@
 
 
 
-  <meta name="description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,do">
+  <meta name="description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,d">
 <meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-Iterator&#x2F;Generator">
 <meta property="og:url" content="http://huanchong.top/2019/02/20/understanding-es6-8/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,do">
+<meta property="og:description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,d">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0d6x83uz6j211u0naq6h.jpg">
-<meta property="og:updated_time" content="2019-02-21T10:15:14.438Z">
+<meta property="og:updated_time" content="2019-03-04T07:11:16.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Iterator&#x2F;Generator">
-<meta name="twitter:description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,do">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0d6x83uz6j211u0naq6h.jpg">
+<meta name="twitter:description" content="迭代器与生成器背景传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性 迭代器Iterator迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,d">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 
 
 
@@ -385,7 +386,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-21 18:15:14" itemprop="dateModified" datetime="2019-02-21T18:15:14+08:00">2019-02-21</time>
+                <time title="Modified: 2019-03-04 15:11:16" itemprop="dateModified" datetime="2019-03-04T15:11:16+08:00">2019-03-04</time>
               
             
           </span>
@@ -418,7 +419,8 @@
       
 
       
-        <h3 id="迭代器与生成器"><a href="#迭代器与生成器" class="headerlink" title="迭代器与生成器"></a>迭代器与生成器</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，<strong>注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性</strong></p>
+        <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="迭代器与生成器"><a href="#迭代器与生成器" class="headerlink" title="迭代器与生成器"></a>迭代器与生成器</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，<strong>注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性</strong></p>
 <h4 id="迭代器Iterator"><a href="#迭代器Iterator" class="headerlink" title="迭代器Iterator"></a>迭代器Iterator</h4><p>迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,done:bool},value表示当前迭代位置的返回值，done表示是否迭代结束，结束时其值为false</p>
 <h4 id="生成器Generator"><a href="#生成器Generator" class="headerlink" title="生成器Generator"></a>生成器Generator</h4><p>是一个返回迭代器对象的函数</p>
 <ol>

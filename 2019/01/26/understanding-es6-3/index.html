@@ -104,10 +104,12 @@
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
 <meta property="og:description" content="函数函数的形参带默认值123function demo(url, timeout = 500, callback = function()&amp;#123;&amp;#125;)&amp;#123;    //....函数体&amp;#125; 当函数调用时传入的实参是undefined或不传递时，会取默认值；null值是有效值，不会取默认值123456789function demo(url, timeout = 500,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-14T08:51:21.217Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
+<meta property="og:updated_time" content="2019-03-04T07:10:54.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Function">
 <meta name="twitter:description" content="函数函数的形参带默认值123function demo(url, timeout = 500, callback = function()&amp;#123;&amp;#125;)&amp;#123;    //....函数体&amp;#125; 当函数调用时传入的实参是undefined或不传递时，会取默认值；null值是有效值，不会取默认值123456789function demo(url, timeout = 500,">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg">
 
 
 
@@ -383,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-14 16:51:21" itemprop="dateModified" datetime="2019-02-14T16:51:21+08:00">2019-02-14</time>
+                <time title="Modified: 2019-03-04 15:10:54" itemprop="dateModified" datetime="2019-03-04T15:10:54+08:00">2019-03-04</time>
               
             
           </span>
@@ -416,7 +418,8 @@
       
 
       
-        <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="函数的形参带默认值"><a href="#函数的形参带默认值" class="headerlink" title="函数的形参带默认值"></a>函数的形参带默认值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="comment">//....函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="函数的形参带默认值"><a href="#函数的形参带默认值" class="headerlink" title="函数的形参带默认值"></a>函数的形参带默认值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="comment">//....函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当函数调用时传入的实参是undefined或不传递时，会取默认值；<strong>null</strong>值是有效值，不会取默认值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout:'</span>,timeout)</span><br><span class="line">&#125;</span><br><span class="line">demo(<span class="string">'url'</span>,<span class="literal">null</span>) <span class="comment">// timeout: null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">url, timeout = <span class="number">500</span>, callback = function(</span>)</span>&#123;&#125;)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout:'</span>,timeout)</span><br><span class="line">&#125;</span><br><span class="line">demo(<span class="string">'url'</span>,<span class="literal">undefined</span>) <span class="comment">// timeout: 500</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><p>函数形参默认值可以为表达式</p>

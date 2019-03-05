@@ -364,12 +364,24 @@
                 
               
 
-              <time title="Created: 2019-02-25 14:44:01 / Modified: 19:37:24" itemprop="dateCreated datePublished" datetime="2019-02-25T14:44:01+08:00">2019-02-25</time>
+              <time title="Created: 2019-02-25 14:44:01" itemprop="dateCreated datePublished" datetime="2019-02-25T14:44:01+08:00">2019-02-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:45" itemprop="dateModified" datetime="2019-03-04T15:11:45+08:00">2019-03-04</time>
               
             
           </span>
@@ -404,7 +416,8 @@
       
         
           
-            <h3 id="模块的导入导出"><a href="#模块的导入导出" class="headerlink" title="模块的导入导出"></a>模块的导入导出</h3><ol>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="模块的导入导出"><a href="#模块的导入导出" class="headerlink" title="模块的导入导出"></a>模块的导入导出</h3><ol>
 <li><p>导出export</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> a = <span class="number">111</span> <span class="comment">//导出基本类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// 导出类</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;&#125; <span class="comment">// 导出函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">num1, num2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num1*num2</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; multiply &#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -559,12 +572,24 @@
                 
               
 
-              <time title="Created: 2019-02-24 15:06:44 / Modified: 17:09:59" itemprop="dateCreated datePublished" datetime="2019-02-24T15:06:44+08:00">2019-02-24</time>
+              <time title="Created: 2019-02-24 15:06:44" itemprop="dateCreated datePublished" datetime="2019-02-24T15:06:44+08:00">2019-02-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:38" itemprop="dateModified" datetime="2019-03-04T15:11:38+08:00">2019-03-04</time>
               
             
           </span>
@@ -599,7 +624,8 @@
       
         
           
-            <h3 id="Promise与异步编程"><a href="#Promise与异步编程" class="headerlink" title="Promise与异步编程"></a>Promise与异步编程</h3><h4 id="创建一个待执行状态的Promise"><a href="#创建一个待执行状态的Promise" class="headerlink" title="创建一个待执行状态的Promise"></a>创建一个待执行状态的Promise</h4><p>new Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">fileName</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//异步操作</span></span><br><span class="line">        fs.readFile(fileName, (err, contents)=&gt; &#123;</span><br><span class="line">            <span class="comment">//读取错误时</span></span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                reject(err)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//读取成功时</span></span><br><span class="line">            resolve(contents)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> file = readFile(<span class="string">'readme.txt'</span>)</span><br><span class="line"><span class="comment">// 同时监听成功或失败</span></span><br><span class="line">file.then(<span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="Promise与异步编程"><a href="#Promise与异步编程" class="headerlink" title="Promise与异步编程"></a>Promise与异步编程</h3><h4 id="创建一个待执行状态的Promise"><a href="#创建一个待执行状态的Promise" class="headerlink" title="创建一个待执行状态的Promise"></a>创建一个待执行状态的Promise</h4><p>new Promise()会立即执行，因此如果需要在合适的位置创建Promise，可以使用一个函数进行包装，合适的位置进行调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">fileName</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//异步操作</span></span><br><span class="line">        fs.readFile(fileName, (err, contents)=&gt; &#123;</span><br><span class="line">            <span class="comment">//读取错误时</span></span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                reject(err)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//读取成功时</span></span><br><span class="line">            resolve(contents)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> file = readFile(<span class="string">'readme.txt'</span>)</span><br><span class="line"><span class="comment">// 同时监听成功或失败</span></span><br><span class="line">file.then(<span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <h4 id="直接返回一个已执行状态的Promise对象"><a href="#直接返回一个已执行状态的Promise对象" class="headerlink" title="直接返回一个已执行状态的Promise对象"></a>直接返回一个已执行状态的Promise对象</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line"><span class="built_in">Promise</span>.reject()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>传递给Promise.resolve()的参数，如果是一个Promise对象，则会原样返回，如果不是一个Promise对象，针对非Promise的thenable对象，会做进一步包装，将其转换成Promise对象再返回（基本类型的值也会被自动转换成Promise对象）</li>
@@ -724,12 +750,24 @@
                 
               
 
-              <time title="Created: 2019-02-24 13:42:09 / Modified: 15:07:06" itemprop="dateCreated datePublished" datetime="2019-02-24T13:42:09+08:00">2019-02-24</time>
+              <time title="Created: 2019-02-24 13:42:09" itemprop="dateCreated datePublished" datetime="2019-02-24T13:42:09+08:00">2019-02-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:34" itemprop="dateModified" datetime="2019-03-04T15:11:34+08:00">2019-03-04</time>
               
             
           </span>
@@ -764,7 +802,8 @@
       
         
           
-            <h3 id="对数组功能的增强"><a href="#对数组功能的增强" class="headerlink" title="对数组功能的增强"></a>对数组功能的增强</h3><h4 id="数组的创建"><a href="#数组的创建" class="headerlink" title="数组的创建"></a>数组的创建</h4><ol>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="对数组功能的增强"><a href="#对数组功能的增强" class="headerlink" title="对数组功能的增强"></a>对数组功能的增强</h3><h4 id="数组的创建"><a href="#数组的创建" class="headerlink" title="数组的创建"></a>数组的创建</h4><ol>
 <li><p>Array.of()<br>数组构造器new Array()创建数组时，因为传递参数的个数与类型不同，会出现怪异的行为，因此引进了Array.of()方法创建数组</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> items = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2</span>) <span class="comment">//如果只有一个参数，并且是数值型，new Array()构造器就把参数理解成为数组的长度，所以元素都为undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(items[<span class="number">0</span>]) <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(items[<span class="number">1</span>]) <span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"> items = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2</span>,<span class="number">1</span>) <span class="comment">//如果参数超过1个，则new Array()构造器就把参数理解成为数组的元素</span></span><br><span class="line"> <span class="built_in">console</span>.log(items[<span class="number">0</span>]) <span class="comment">//2</span></span><br><span class="line"><span class="built_in">console</span>.log(items[<span class="number">1</span>])  <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//所以这里作为对参数理解的统一，使用Array.of()都会把参数理解成为元素</span></span><br><span class="line">items = <span class="built_in">Array</span>.of(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">console</span>.log(items[<span class="number">0</span>]) <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -903,7 +942,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-24 13:41:38" itemprop="dateModified" datetime="2019-02-24T13:41:38+08:00">2019-02-24</time>
+                <time title="Modified: 2019-03-04 15:11:24" itemprop="dateModified" datetime="2019-03-04T15:11:24+08:00">2019-03-04</time>
               
             
           </span>
@@ -938,7 +977,8 @@
       
         
           
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类</p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在ES6之前，官方都不支持类的语法，很多第三方类库都通过模拟实现了类似类的用法，最终ES6引入了类</p>
 <h3 id="类的介绍"><a href="#类的介绍" class="headerlink" title="类的介绍"></a>类的介绍</h3><h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><h5 id="ES6之前的写法：称为自定义类型"><a href="#ES6之前的写法：称为自定义类型" class="headerlink" title="ES6之前的写法：称为自定义类型"></a>ES6之前的写法：称为自定义类型</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="ES6的写法："><a href="#ES6的写法：" class="headerlink" title="ES6的写法："></a>ES6的写法：</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name <span class="comment">//自有属性</span></span><br><span class="line">    &#125;</span><br><span class="line">    sayName()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person(<span class="string">'Tom'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(person.sayName()) <span class="comment">//Tom</span></span><br><span class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> Person) <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> <span class="built_in">Object</span>) <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person) <span class="comment">//function</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person.sayName) <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Person.prototype.sayName) <span class="comment">//function</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -1095,7 +1135,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-21 18:15:14" itemprop="dateModified" datetime="2019-02-21T18:15:14+08:00">2019-02-21</time>
+                <time title="Modified: 2019-03-04 15:11:16" itemprop="dateModified" datetime="2019-03-04T15:11:16+08:00">2019-03-04</time>
               
             
           </span>
@@ -1130,7 +1170,8 @@
       
         
           
-            <h3 id="迭代器与生成器"><a href="#迭代器与生成器" class="headerlink" title="迭代器与生成器"></a>迭代器与生成器</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，<strong>注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性</strong></p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="迭代器与生成器"><a href="#迭代器与生成器" class="headerlink" title="迭代器与生成器"></a>迭代器与生成器</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>传统的遍历迭代集合的方式使用for循环，ES6引入了迭代器对象，使得操作集合更加便捷，Set、Map、for…of、扩展运算符 都用到了迭代器，<strong>注：普通的对象不是可迭代的，因为没有Symbol(Symbol.iterator)属性</strong></p>
 <h4 id="迭代器Iterator"><a href="#迭代器Iterator" class="headerlink" title="迭代器Iterator"></a>迭代器Iterator</h4><p>迭代器表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有next()方法，返回{value:’’,done:bool},value表示当前迭代位置的返回值，done表示是否迭代结束，结束时其值为false</p>
 <h4 id="生成器Generator"><a href="#生成器Generator" class="headerlink" title="生成器Generator"></a>生成器Generator</h4><p>是一个返回迭代器对象的函数</p>
 <ol>
@@ -1279,12 +1320,24 @@
                 
               
 
-              <time title="Created: 2019-02-20 14:50:33 / Modified: 16:30:21" itemprop="dateCreated datePublished" datetime="2019-02-20T14:50:33+08:00">2019-02-20</time>
+              <time title="Created: 2019-02-20 14:50:33" itemprop="dateCreated datePublished" datetime="2019-02-20T14:50:33+08:00">2019-02-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:12" itemprop="dateModified" datetime="2019-03-04T15:11:12+08:00">2019-03-04</time>
               
             
           </span>
@@ -1319,7 +1372,8 @@
       
         
           
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>ES6新增了两种集合类型Set、Map，用来实现不同的功能</p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>ES6新增了两种集合类型Set、Map，用来实现不同的功能</p>
 <ul>
 <li>Set 是不包含重复值的列表，常被用来检查某个值是否存在</li>
 <li>Map 是键值对的集合，多用来作为缓存，存储和提取数据。Object的属性类型都会默认转成字符串，比如obj[‘5’]与obj[5]是等价的；Map的属性类型可以其他类型</li>
@@ -1479,7 +1533,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-20 20:55:28" itemprop="dateModified" datetime="2019-02-20T20:55:28+08:00">2019-02-20</time>
+                <time title="Modified: 2019-03-04 15:11:06" itemprop="dateModified" datetime="2019-03-04T15:11:06+08:00">2019-03-04</time>
               
             
           </span>
@@ -1514,7 +1568,8 @@
       
         
           
-            <h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全</p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>Symbol是JS新引入的一个基本类型，拓宽了定义对象属性的类型(传统的对象是所有属性都是字符串，如今新增了symbol类型的属性)，同时定义对象属性是不可枚举，通过Object.keys()\Object.getOwnPropertyNames()两种方法是访问不到对象的symbol类型属性的，使得对象属性及值的访问更加的安全</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
 <li>使用全局Symbol函数创建symbol类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>) <span class="comment">//传入的参数作为symbol变量的描述</span></span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line">person[firstName] = <span class="string">'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(person) <span class="comment">// &#123;Symbol(first name): "Tom"&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName]) <span class="comment">// 'Tom'</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName) <span class="comment">// Symbol('first name') symbol变量的描述信息存储在内部属性[[Description]]中，只有显式或隐式的调用toSting()时，会被读取到，console.log()会隐式的调用toString()方法，所以才打印出来了；String(firstName) 也会隐式调用toSting()、firstName.toString()则是显式调用</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'first name'</span> <span class="keyword">in</span> person) <span class="comment">// false  'first name'只是symbol变量的描述信息而已</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -1625,12 +1680,24 @@
                 
               
 
-              <time title="Created: 2019-02-19 16:55:29 / Modified: 20:42:12" itemprop="dateCreated datePublished" datetime="2019-02-19T16:55:29+08:00">2019-02-19</time>
+              <time title="Created: 2019-02-19 16:55:29" itemprop="dateCreated datePublished" datetime="2019-02-19T16:55:29+08:00">2019-02-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 15:11:02" itemprop="dateModified" datetime="2019-03-04T15:11:02+08:00">2019-03-04</time>
               
             
           </span>
@@ -1665,7 +1732,8 @@
       
         
           
-            <h3 id="对对象与数组的解构"><a href="#对对象与数组的解构" class="headerlink" title="对对象与数组的解构"></a>对对象与数组的解构</h3><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><p>使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素</p>
+            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0qs1z3avzj216w0lggpe.jpg" alt=""></p>
+<h3 id="对对象与数组的解构"><a href="#对对象与数组的解构" class="headerlink" title="对对象与数组的解构"></a>对对象与数组的解构</h3><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><p>使用解构操作符，可以更方便的提取对象和数组中的的单个成员元素</p>
 <h4 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h4><ol>
 <li><p>带默认值的解构</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">'Tom'</span>,</span><br><span class="line">    age: <span class="string">'20'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> &#123; name = <span class="string">'Eric'</span>, age&#125; = person</span><br></pre></td></tr></table></figure>
@@ -2016,7 +2084,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-22 14:27:34" itemprop="dateModified" datetime="2019-02-22T14:27:34+08:00">2019-02-22</time>
+                <time title="Modified: 2019-03-04 11:58:25" itemprop="dateModified" datetime="2019-03-04T11:58:25+08:00">2019-03-04</time>
               
             
           </span>
