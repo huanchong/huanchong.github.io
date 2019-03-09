@@ -319,6 +319,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/02/14/property-descriptor/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanchong Zhang"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huanchong's Blog"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/14/property-descriptor/" class="post-title-link" itemprop="url">property-descriptor</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-14 20:50:22" itemprop="dateCreated datePublished" datetime="2019-02-14T20:50:22+08:00">2019-02-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-04 11:58:25" itemprop="dateModified" datetime="2019-03-04T11:58:25+08:00">2019-03-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h3><p>我们定义的对象，对应的每一个属性都对应一个‘属性描述符’对象，用来描述该属性的一些特性：<br>属性描述符有两种形式：<strong>数据描述符或存取描述符</strong>。数据描述符是一个具有值的属性，该值可能是可写的，也可能不是可写的。存取描述符是由getter-setter函数对描述的属性。<strong>属性描述符必须是这两种形式之一；且不能同时是两者</strong></p>
+<ul>
+<li>数据描述符独有的：<ul>
+<li>value：改属性的值</li>
+<li>writable：为true表示该属性的value可以被重写</li>
+</ul>
+</li>
+<li>存取描述符独有的：<ul>
+<li>get：获取该属性的访问器函数(getter)，当访问该属性时，该方法会被执行，方法执行时没有参数传入；如果没有 getter 则为 undefined</li>
+<li>set：该属性的设置器函数(setter)，当属性值修改时，触发执行该方法。该方法将接受唯一参数，即该属性新的参数值；如果没有则为undefined，为该属性赋不了值</li>
+</ul>
+</li>
+<li>数据描述符和存取描述符都含有的:<ul>
+<li>configurable：为ture时，表示当前属性的‘属性表述符’对象可以被更改，该属性可以使用delete删除，否则就是不允许更改</li>
+<li>enumerable：为true时，表示当前属性可以被枚举，也就是当前属性是否可以在 for…in 循环和 Object.keys() 中被遍历出来</li>
+</ul>
+</li>
+<li>(value和writable)与(get和set)是不共存的，只要定义了其中一个，就定下来了该描述符的性质是数据描述符还是存取描述符<br>错误的案例：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123; <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;,<span class="attr">value</span> : <span class="number">12</span> &#125; );</span><br><span class="line"><span class="comment">// Uncaught TypeError:Invalid property descriptor.Cannot both specify accessors and a value or writable attribute</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123; <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;, </span><br><span class="line">                                  configurable : <span class="literal">true</span> &#125; );</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;<span class="attr">value</span> : <span class="number">12</span>&#125;); <span class="comment">// 这里重写了属性描述符，将其变为数据描述符,且没定义的configurable 不会重写</span></span><br><span class="line">  <span class="built_in">console</span>.log(o.a) <span class="comment">// 12</span></span><br><span class="line">  d = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">"a"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(d) <span class="comment">//&#123;value: 20, writable: false, enumerable: false, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Object-defineProperty-obj-prop-descriptor-创建或修改对象的单个属性"><a href="#Object-defineProperty-obj-prop-descriptor-创建或修改对象的单个属性" class="headerlink" title="Object.defineProperty(obj, prop, descriptor)创建或修改对象的单个属性"></a>Object.defineProperty(obj, prop, descriptor)创建或修改对象的单个属性</h4><p>用来定义或修改obj对象上prop属性的descriptor属性描述符</p>
+<ul>
+<li>obj：要在其上定义属性的对象。</li>
+<li>prop：要定义或修改的属性的名称。</li>
+<li>descriptor：object,将被定义或修改的属性描述符<br>当描述符中省略某些字段时，这些字段将使用它们的默认值。拥有布尔值的字段的默认值都是false。<br>value，get和set字段的默认值为undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bValue, o=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123;</span><br><span class="line">    set : <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">        bValue = newValue;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//undefined  没有显示定义getter函数，因此默认值为undefined，所以使用o.b调用时为undefined</span></span><br><span class="line">o.b= <span class="number">11</span></span><br><span class="line"><span class="built_in">console</span>.log(bValue) <span class="comment">// 11 给属性赋值时，调用了setter函数，将值赋值给了bValue</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123;</span><br><span class="line">    get : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">22</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//22</span></span><br><span class="line">o.b = <span class="number">123</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b) <span class="comment">//22 因为没有显示定义setter，所以默认值为undefined，赋值动作无效，因此o.b不会变化</span></span><br></pre></td></tr></table></figure>
+<h4 id="Object-defineProperties-obj-props-创建或修改对象的多个属性"><a href="#Object-defineProperties-obj-props-创建或修改对象的多个属性" class="headerlink" title="Object.defineProperties(obj, props) 创建或修改对象的多个属性"></a>Object.defineProperties(obj, props) 创建或修改对象的多个属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span>  Obj = &#123;</span><br><span class="line">  <span class="string">"a"</span>:<span class="number">10</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperties(Obj,&#123;</span><br><span class="line">  <span class="string">"a1"</span>:&#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.a+<span class="number">1</span>;&#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123; <span class="keyword">this</span>.a = val;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"a2"</span>:&#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.a+<span class="string">"test"</span>;&#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;<span class="keyword">this</span>.b = val&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(Obj.a1); <span class="comment">//11</span></span><br><span class="line"><span class="built_in">console</span>.log(Obj.a2); <span class="comment">//1test</span></span><br><span class="line">Obj.a1 = <span class="number">3</span>;</span><br><span class="line">Obj.a2 = <span class="string">'hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Obj.a1); <span class="comment">//4</span></span><br><span class="line"><span class="built_in">console</span>.log(Obj.a2); <span class="comment">//3test</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改属性"><a href="#修改属性" class="headerlink" title="修改属性"></a>修改属性</h4><ol>
+<li><p>Writable 属性<br>当writable属性设置为false时，该属性被称为“不可写”</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;; <span class="comment">// 创建一个新对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在对象中添加一个属性与数据描述符的示例</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;</span><br><span class="line">  value : <span class="number">37</span>,</span><br><span class="line">  writable : <span class="literal">false</span>,</span><br><span class="line">  enumerable : <span class="literal">true</span>,</span><br><span class="line">  configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">o.a = <span class="number">123</span></span><br><span class="line"><span class="built_in">console</span>.log(o.a) <span class="comment">//37 赋值无效</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Enumerable 特性<br>enumerable定义了对象的属性是否可以在 for…in 循环和 Object.keys() 中被枚举</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123; <span class="attr">value</span> : <span class="number">1</span>, <span class="attr">enumerable</span>:<span class="literal">true</span> &#125;);</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"b"</span>, &#123; <span class="attr">value</span> : <span class="number">2</span>, <span class="attr">enumerable</span>:<span class="literal">false</span> &#125;);</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"c"</span>, &#123; <span class="attr">value</span> : <span class="number">3</span> &#125;); <span class="comment">// enumerable defaults to false</span></span><br><span class="line">o.d = <span class="number">4</span>; <span class="comment">// 如果使用直接赋值的方式创建对象的属性，则这个属性的enumerable为true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> o) &#123;    </span><br><span class="line">  <span class="built_in">console</span>.log(i);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 打印 'a' 和 'd' (in undefined order)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(o); <span class="comment">// ["a", "d"]</span></span><br><span class="line"></span><br><span class="line">o.propertyIsEnumerable(<span class="string">'a'</span>); <span class="comment">// true</span></span><br><span class="line">o.propertyIsEnumerable(<span class="string">'b'</span>); <span class="comment">// false</span></span><br><span class="line">o.propertyIsEnumerable(<span class="string">'c'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Configurable 特性<br>configurable特性表示对象的属性是否可以被删除及属性描述符是否可以被修改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;<span class="attr">value</span> : <span class="number">12</span>, </span><br><span class="line">                                configurable : <span class="literal">false</span> &#125; );</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;<span class="attr">value</span> : <span class="number">20</span>&#125;); <span class="comment">// Uncaught TypeError: Cannot redefine property: a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> o.a <span class="comment">// false 删除失败</span></span><br><span class="line"><span class="built_in">console</span>.log(o.a) <span class="comment">// 12 还是可以正常访问</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="我们熟悉的默认写法"><a href="#我们熟悉的默认写法" class="headerlink" title="我们熟悉的默认写法"></a>我们熟悉的默认写法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">o.a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 等同于 :</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;</span><br><span class="line">  value : <span class="number">1</span>,</span><br><span class="line">  writable : <span class="literal">true</span>,</span><br><span class="line">  configurable : <span class="literal">true</span>,</span><br><span class="line">  enumerable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = &#123; get foo() &#123; <span class="keyword">return</span> <span class="number">17</span>; &#125; &#125;;</span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'foo'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(p)</span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">//   configurable: true,</span></span><br><span class="line"><span class="comment">//   enumerable: true,</span></span><br><span class="line"><span class="comment">//   get: /*the getter function*/,</span></span><br><span class="line"><span class="comment">//   set: undefined</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 另一方面，</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123; <span class="attr">value</span> : <span class="number">1</span> &#125;);</span><br><span class="line"><span class="comment">// 等同于 :</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"a"</span>, &#123;</span><br><span class="line">  value : <span class="number">1</span>,</span><br><span class="line">  writable : <span class="literal">false</span>,</span><br><span class="line">  configurable : <span class="literal">false</span>,</span><br><span class="line">  enumerable : <span class="literal">false</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="Object-getOwnPropertyDescriptor-obj-prop-获取指定对象自有属性的属性描述符"><a href="#Object-getOwnPropertyDescriptor-obj-prop-获取指定对象自有属性的属性描述符" class="headerlink" title="Object.getOwnPropertyDescriptor(obj, prop) 获取指定对象自有属性的属性描述符"></a>Object.getOwnPropertyDescriptor(obj, prop) 获取指定对象自有属性的属性描述符</h4><p>obj：需要查找的目标对象<br>prop：目标对象内属性名称（String类型）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o, d;</span><br><span class="line"></span><br><span class="line">o = &#123; get foo() &#123; <span class="keyword">return</span> <span class="number">17</span>; &#125; &#125;;</span><br><span class="line">d = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">"foo"</span>);</span><br><span class="line"><span class="comment">// d &#123;</span></span><br><span class="line"><span class="comment">//   configurable: true,</span></span><br><span class="line"><span class="comment">//   enumerable: true,</span></span><br><span class="line"><span class="comment">//   get: /*the getter function*/,</span></span><br><span class="line"><span class="comment">//   set: undefined</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">o = &#123; <span class="attr">bar</span>: <span class="number">42</span> &#125;;</span><br><span class="line">d = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">"bar"</span>);</span><br><span class="line"><span class="comment">// d &#123;</span></span><br><span class="line"><span class="comment">//   configurable: true,</span></span><br><span class="line"><span class="comment">//   enumerable: true,</span></span><br><span class="line"><span class="comment">//   value: 42,</span></span><br><span class="line"><span class="comment">//   writable: true</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">o = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"baz"</span>, &#123;</span><br><span class="line">  value: <span class="number">8675309</span>,</span><br><span class="line">  writable: <span class="literal">false</span>,</span><br><span class="line">  enumerable: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line">d = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">"baz"</span>);</span><br><span class="line"><span class="comment">// d &#123;</span></span><br><span class="line"><span class="comment">//   value: 8675309,</span></span><br><span class="line"><span class="comment">//   writable: false,</span></span><br><span class="line"><span class="comment">//   enumerable: false,</span></span><br><span class="line"><span class="comment">//   configurable: false</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/02/14/understanding-es6-4/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1922,190 +2117,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/01/13/async-function/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Huanchong Zhang"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huanchong's Blog"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/13/async-function/" class="post-title-link" itemprop="url">async/await浅谈</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-13 18:20:36" itemprop="dateCreated datePublished" datetime="2019-01-13T18:20:36+08:00">2019-01-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-26 12:17:20" itemprop="dateModified" datetime="2019-01-26T12:17:20+08:00">2019-01-26</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1fz55qykkh2j20m80ciwep.jpg" alt="async"></p>
-<h3 id="背景意义"><a href="#背景意义" class="headerlink" title="背景意义"></a>背景意义</h3><p>众多周知，Promise的出现使用then链有效的解决了原有回调地狱的问题，现在async/await是对Promise的进一步优化,使异步代码维护起来更像是同步操作</p>
-<h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><ul>
-<li>可以理解为是Generator 函数的语法糖</li>
-<li>async函数返回一个Promise对象，所以可以在async函数调用后面使用.then()添加回调函数；</li>
-<li>如果async函数中return的是一个基本类型，会被Promise.resolve()函数进行包装成一个Promise对象，基本类型的值将作为resolve()的参数进行传递<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line">test().then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data) <span class="comment">//20</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>async返回基本类型时，会被包装成Promise对形象</p>
-<ul>
-<li>如果async函数中没有显式return，则会return一个没有参数的Promise对象<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'print async'</span>) <span class="comment">//print async</span></span><br><span class="line">&#125;</span><br><span class="line">test().then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'enter...'</span>) <span class="comment">//enter...</span></span><br><span class="line">    <span class="built_in">console</span>.log(data) <span class="comment">//undefied</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>以上说明async函数没有显式return时，会默认return一个不带任何参数的Promise对象</p>
-<h3 id="await"><a href="#await" class="headerlink" title="await"></a>await</h3><ul>
-<li>await只能在async函数中使用</li>
-<li><p>await当接收一个Promise对象时，会等待Promise返回的结果，回调的resolve函数参数作为 await 表达式的值，async后面的代码也会一直等待</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        resolve(<span class="number">20</span>)</span><br><span class="line">    &#125;)&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> num = <span class="keyword">await</span> f1()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'num'</span>,num) <span class="comment">//num 20</span></span><br><span class="line">&#125;</span><br><span class="line">f2()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>await当接收一个基本类型值时，await没有任何作用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> a = <span class="keyword">await</span> <span class="number">20</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'a'</span>,a) <span class="comment">//a 20</span></span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>任何一个await语句后面的 Promise 对象变为reject状态，那么整个async函数都会中断执行</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="built_in">Promise</span>.reject(<span class="string">'出错了'</span>);</span><br><span class="line">  <span class="keyword">await</span> <span class="built_in">Promise</span>.resolve(<span class="string">'hello world'</span>); <span class="comment">// 不会执行</span></span><br><span class="line">&#125;</span><br><span class="line">f().then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err) <span class="comment">//出错了</span></span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2148,7 +2164,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2173,7 +2189,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

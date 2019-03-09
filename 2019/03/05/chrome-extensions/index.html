@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","width":350,"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+<meta name="keywords" content="chrome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写chrome插件前必须要知道的">
+<meta property="og:url" content="http://huanchong.top/2019/03/05/chrome-extensions/index.html">
+<meta property="og:site_name" content="Huanchong&#39;s Blog">
+<meta property="og:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s0byu0w2j20mw01y3yx.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s6ny6sqgj20hs0bagm8.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8jgnb5ej2122068q3h.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8xyee82j227k060t9t.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s91fijjaj20hs0ba3z4.jpg">
+<meta property="og:updated_time" content="2019-03-09T05:21:37.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="写chrome插件前必须要知道的">
+<meta name="twitter:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s0byu0w2j20mw01y3yx.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://huanchong.top/2019/03/05/chrome-extensions/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>写chrome插件前必须要知道的 | Huanchong's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Huanchong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/03/05/chrome-extensions/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanchong Zhang"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huanchong's Blog"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">写chrome插件前必须要知道的
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-05 15:29:08" itemprop="dateCreated datePublished" datetime="2019-03-05T15:29:08+08:00">2019-03-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-09 13:21:37" itemprop="dateModified" datetime="2019-03-09T13:21:37+08:00">2019-03-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能</p>
+<h3 id="插件组成"><a href="#插件组成" class="headerlink" title="插件组成"></a>插件组成</h3><p>首先先看一下我们要开发的插件的各个文件组成<br>manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：</p>
+<ul>
+<li>name 插件的名字</li>
+<li>version 插件版本</li>
+<li>manifest_version manifest的版本</li>
+<li><p>description 插件的描述(选填)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"hello extension"</span>,</span><br><span class="line">    <span class="string">"description"</span>: <span class="string">"Base Level Extension"</span>,</span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"1.0"</span>,</span><br><span class="line">    <span class="string">"manifest_version"</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>icons 在扩展程序管理界面，呈现的图标，可以设置不同的尺寸的选项，用来适配不同的场景</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"icons"</span>: &#123;</span><br><span class="line">        <span class="string">"16"</span>: <span class="string">"images/extension_icon16.png"</span>,</span><br><span class="line">        <span class="string">"32"</span>: <span class="string">"images/extension_icon32.png"</span>,</span><br><span class="line">        <span class="string">"48"</span>: <span class="string">"images/extension_icon48.png"</span>,</span><br><span class="line">        <span class="string">"128"</span>: <span class="string">"images/extension_icon128.png"</span></span><br><span class="line">      &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>background 在扩展程序被开启时，会首先触发执行background 选项中指定的js资源，并且一直存在于扩展程序的整个生命周期，直到扩展程序被关闭或者删除，background一直被用来做任务和状态的控制管理工作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// scripts 子选项指定了需要执行的js文件的路径及文件名</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"background"</span>: &#123;</span><br><span class="line">        <span class="string">"scripts"</span>:[<span class="string">"background.js"</span>],</span><br><span class="line">        <span class="string">"persistent"</span>: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>background.js 通常最外层使用监听事件<code>chrome.runtime.onInstalled.addListener(()=&gt;{})</code>初始化插件，监听插件安装成功后，会触发对应的逻辑开始工作</p>
+<ul>
+<li>permissions 属性值为一个数组，申请chrome API的权限，只有在这个选项中申请了才能使用（比如通过 XMLHttpRequest 跨域请求数据、访问浏览器选项卡（tabs）、获取当前活动选项卡（activeTab）、浏览器通知（notifications）、设置插件激活规则（declarativeContent）、类似localStorage的存储（storage）等）<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"permissions"</span>: [</span><br><span class="line">        <span class="string">"http://xxx.com/api"</span></span><br><span class="line">        <span class="string">"tabs"</span>,</span><br><span class="line">        <span class="string">"activeTab"</span>,</span><br><span class="line">        <span class="string">"notifications"</span>,</span><br><span class="line">        <span class="string">"declarativeContent"</span>,</span><br><span class="line">        <span class="string">"storage"</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个"><a href="#定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个" class="headerlink" title="定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个"></a>定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个</h4><ul>
+<li><p>browser_action 提供的功能面向所有网站，插件图标一直是激活的状态</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"browser_action"</span>: &#123;</span><br><span class="line">      <span class="string">"default_popup"</span>: <span class="string">"popup.html"</span>        <span class="comment">// 指定click插件图标时，展示的页面</span></span><br><span class="line">      <span class="string">"default_icon"</span>: <span class="string">"images/icon.png"</span>, <span class="comment">// 指定浏览器工具栏展示的插件的图标 </span></span><br><span class="line">      <span class="string">"default_title"</span>: <span class="string">"display tooltip"</span> <span class="comment">// 当鼠标悬浮在插件图片上方时，展示的文字，叫tooltip；如果没有这个配置选项，则悬浮时显示menifest.json中的name选项值</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>page_action 只针对对应目标网站提供的功能，插件会在background页设置激活插件的规则，只有满足条件的网页的插件才是激活的，其他网站插件是不可用的，插件的icon是灰的<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s0byu0w2j20mw01y3yx.jpg" alt=""><br>在<code>background script</code>里，<code>chrome.runtime.onInstalled.addListener(()=&gt;{})</code>初始化中使用<code>chrome.declarativeContent</code>定义插件被激活的规则</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"page_action"</span>:&#123;</span><br><span class="line">        <span class="string">"default_popup"</span>: <span class="string">"popup.html"</span>, <span class="comment">// 指定click插件图标时，展示的页面</span></span><br><span class="line">        <span class="string">"default_icon"</span>: <span class="string">"hello_extension.png"</span> <span class="comment">// 指定浏览器工具栏展示的插件的图标 </span></span><br><span class="line">        <span class="string">"default_title"</span>: <span class="string">"display tooltip"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    chrome.runtime.onInstalled.addListener(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Replace all rules ...</span></span><br><span class="line">    chrome.declarativeContent.onPageChanged.removeRules(<span class="literal">undefined</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// With a new rule ...</span></span><br><span class="line">    chrome.declarativeContent.onPageChanged.addRules([</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">// That fires when a page's URL contains a 'g' ...</span></span><br><span class="line">        conditions: [</span><br><span class="line">            <span class="keyword">new</span> chrome.declarativeContent.PageStateMatcher(&#123;</span><br><span class="line">            pageUrl: &#123; <span class="attr">urlContains</span>: <span class="string">'g'</span> &#125;, <span class="comment">//url的内容中包含字母g的，插件才会被激活</span></span><br><span class="line">            &#125;)</span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">// And shows the extension's page action.</span></span><br><span class="line">        actions: [ <span class="keyword">new</span> chrome.declarativeContent.ShowPageAction() ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="popup-html"><a href="#popup-html" class="headerlink" title="popup.html"></a>popup.html</h4><p>popup.html 是使用browser_action或者page_action 指定的default_popup选项，表示点击插件图标会触发的html资源，其与普通的html页面的区别就是不能使用内联script，其他都一样<br>it can contain links to stylesheets and script tags, but does not allow inline JavaScript.</p>
+<ul>
+<li><p>options_page 设置插件的选项页面，配置了此选项后，在插件上鼠标右键时，会有一个‘选项’按钮，点击后会进入options_page对应的页面<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s6ny6sqgj20hs0bagm8.jpg" alt=""></p>
+</li>
+<li><p>chrome_url_overrides 设置可替换的chrome默认页面</p>
+<ul>
+<li>newtab：新建标签时打开的页面</li>
+<li>bookmarks：书签页面</li>
+<li>history：历史记录<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"chrome_url_overrides"</span>:&#123;</span><br><span class="line">      <span class="string">"newtab"</span>: <span class="string">"newTab.html"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8jgnb5ej2122068q3h.jpg" alt=""></p>
+<h3 id="常用到的Chrome-API"><a href="#常用到的Chrome-API" class="headerlink" title="常用到的Chrome API"></a>常用到的Chrome API</h3><h4 id="chrome-tabs"><a href="#chrome-tabs" class="headerlink" title="chrome.tabs"></a>chrome.tabs</h4></li>
+</ul>
+<ol>
+<li>chrome.tabs.create(object createProperties, function callback)<br>创建新的标签。注： 无需请求manifest的标签权限，此方法也可以被使用。<br><strong>Parameters</strong><br>createProperties ( object )<ul>
+<li>windowId ( optional integer )<br>创建新标签的目标窗口。默认是当前窗口 。</li>
+<li>index ( optional integer )<br>标签在窗口中的位置。 值在零至标签数量之间。</li>
+<li>url ( optional string )<br>标签导航的初始页面。完整的URL 必须包含一个前缀 (如 ‘<a href="http://www.google.com&#39;" target="_blank" rel="noopener">http://www.google.com&#39;</a>, 不能写为 ‘<a href="http://www.google.com&#39;)。" target="_blank" rel="noopener">www.google.com&#39;)。</a> 相对 URL则与扩展所在的页面相对， 默认值为新标签页面。</li>
+<li>selected ( optional boolean )<br>标签是否成为选中标签。默认为true。</li>
+<li>pinned ( optional boolean )<br>标签是否被固定。默认值为false。</li>
+<li>callback ( optional function )</li>
+</ul>
+</li>
+</ol>
+<pre><code>Callback function
+回调 参数 应该如下定义：
+
+function(Tab tab) {...};
+tab ( Tab )
+所创建的标签的细节，包含新标签的ID。
+</code></pre><p><br></p>
+<ol start="2">
+<li>chrome.tabs.executeScript(integer tabId, object details, function callback)<br>向页面注入JavaScript 脚本执行<br><strong>Parameters</strong><ol>
+<li>tabId ( optional integer )<br>运行脚本的标签ID；默认为当前窗口所选中的标签。</li>
+<li>details ( object )<br>要执行的脚本内容，可选code或者file，但不能同时选两者。<ul>
+<li>code ( optional string )<br>要执行的脚本代码。</li>
+<li>file ( optional string )<br>要执行的脚本文件。</li>
+<li>allFrames ( optional boolean )<br>true的时候，给所有frame执行脚本。默认为false，只给顶级frame执行脚本。</li>
+</ul>
+</li>
+<li>callback ( optional function )<br>所有脚本执行后会被调用的回调。</li>
+</ol>
+</li>
+</ol>
+<h4 id="chrome-contextMenus-当前页面，选中内容后右键展示的内容"><a href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容" class="headerlink" title="chrome.contextMenus 当前页面，选中内容后右键展示的内容"></a>chrome.contextMenus 当前页面，选中内容后右键展示的内容</h4><ol>
+<li>在manifest.json中设置权限<code>{&quot;permissions&quot;: [&quot;contextMenus&quot;, &quot;storage&quot;]}</code></li>
+<li>放在background.js中，初始化之后的回调函数中，使用<code>chrome.contextMenus.create({})</code>创建内容目录<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.onInstalled.addListener(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="comment">//...</span></span><br><span class="line">     chrome.contextMenus.create(&#123;</span><br><span class="line">         <span class="string">"id"</span>: <span class="string">"sampleContextMenu"</span>,</span><br><span class="line">         <span class="string">"title"</span>: <span class="string">"Sample Context Menu"</span>,</span><br><span class="line">         <span class="string">"contexts"</span>: [<span class="string">"selection"</span>]</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><ol>
+<li>进入扩展程序管理界面 chrome://extensions</li>
+<li>开启’开发者模式’<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8xyee82j227k060t9t.jpg" alt=""></li>
+<li>可以选择’加载已解压的扩展程序’，将本地开发目录上传上去即可</li>
+<li>可以使用’打包扩展程序’，生成.ctx后缀的扩展程序，就可以发布到google应用市场了<h3 id="插件调试"><a href="#插件调试" class="headerlink" title="插件调试"></a>插件调试</h3><h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4></li>
+</ol>
+<ul>
+<li>每次刷新页面，都会执行browser_action或page_action 指定的popup.html资源</li>
+<li>background指定的js资源只在插件安装时执行，之后就一直存在进程中，不会重复执行<h4 id="调试步骤"><a href="#调试步骤" class="headerlink" title="调试步骤"></a>调试步骤</h4></li>
+</ul>
+<ol>
+<li>在浏览器工具栏右键插件图标<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s91fijjaj20hs0ba3z4.jpg" alt=""></li>
+<li>点击’审查弹出内容’，进入控制台</li>
+<li>切换到Source栏，即可看到browser_action或page_action 指定的资源，设置断点</li>
+<li>切换到Console栏，输入location.reload()，发现原有的页面重新进行了加载，同时browser_action或page_action 指定的资源也重新执行了一遍，并在设置的断点处停下来，等待debug</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/chrome/" rel="tag"># chrome</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/25/understanding-es6-12/" rel="next" title="ES6-Modules">
+                <i class="fa fa-chevron-left"></i> ES6-Modules
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanchong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haunchong" title="GitHub &rarr; https://github.com/haunchong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:huanchong@gmail.com" title="E-Mail &rarr; mailto:huanchong@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件组成"><span class="nav-number">2.</span> <span class="nav-text">插件组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个"><span class="nav-number">2.1.</span> <span class="nav-text">定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popup-html"><span class="nav-number">2.2.</span> <span class="nav-text">popup.html</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用到的Chrome-API"><span class="nav-number">3.</span> <span class="nav-text">常用到的Chrome API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-tabs"><span class="nav-number">3.1.</span> <span class="nav-text">chrome.tabs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容"><span class="nav-number">3.2.</span> <span class="nav-text">chrome.contextMenus 当前页面，选中内容后右键展示的内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">4.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件调试"><span class="nav-number">5.</span> <span class="nav-text">插件调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">5.1.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试步骤"><span class="nav-number">5.2.</span> <span class="nav-text">调试步骤</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=523042017&auto=1&height=66"></iframe>
+    </div>
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  
+  <span class="author" itemprop="copyrightHolder">Huanchong Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
