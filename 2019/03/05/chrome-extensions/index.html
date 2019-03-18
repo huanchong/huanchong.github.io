@@ -96,23 +96,24 @@
 
 
 
-  <meta name="description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+  <meta name="description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成   manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  na">
 <meta name="keywords" content="chrome">
 <meta property="og:type" content="article">
 <meta property="og:title" content="写chrome插件前必须要知道的">
 <meta property="og:url" content="http://huanchong.top/2019/03/05/chrome-extensions/index.html">
 <meta property="og:site_name" content="Huanchong&#39;s Blog">
-<meta property="og:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+<meta property="og:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成   manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  na">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s0byu0w2j20mw01y3yx.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s6ny6sqgj20hs0bagm8.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8jgnb5ej2122068q3h.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0whlgg7g5j20ba0eiwl4.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s8xyee82j227k060t9t.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s91fijjaj20hs0ba3z4.jpg">
-<meta property="og:updated_time" content="2019-03-09T05:21:37.295Z">
+<meta property="og:updated_time" content="2019-03-14T10:20:41.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="写chrome插件前必须要知道的">
-<meta name="twitter:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  name">
+<meta name="twitter:description" content="介绍浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能 插件组成首先先看一下我们要开发的插件的各个文件组成   manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：  na">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g0s0byu0w2j20mw01y3yx.jpg">
 
 
@@ -389,7 +390,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-09 13:21:37" itemprop="dateModified" datetime="2019-03-09T13:21:37+08:00">2019-03-09</time>
+                <time title="Modified: 2019-03-14 18:20:41" itemprop="dateModified" datetime="2019-03-14T18:20:41+08:00">2019-03-14</time>
               
             
           </span>
@@ -423,7 +424,8 @@
 
       
         <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>浏览器插件本质上就是利用前端的html\css\javascript等技术，借用浏览器对外提供的API，实现各种不同的功能</p>
-<h3 id="插件组成"><a href="#插件组成" class="headerlink" title="插件组成"></a>插件组成</h3><p>首先先看一下我们要开发的插件的各个文件组成<br>manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：</p>
+<h3 id="插件组成"><a href="#插件组成" class="headerlink" title="插件组成"></a>插件组成</h3><p>首先先看一下我们要开发的插件的各个文件组成  </p>
+<p>manifest.json :我们在项目的根文件必须要有一个命名为manifest.json的文件，它是整个插件的功能入口，用来告诉浏览器插件的一些基本信息，及需要加载和执行的资源文件等，里面包含一些必填项：</p>
 <ul>
 <li>name 插件的名字</li>
 <li>version 插件版本</li>
@@ -443,7 +445,7 @@
 <li>permissions 属性值为一个数组，申请chrome API的权限，只有在这个选项中申请了才能使用（比如通过 XMLHttpRequest 跨域请求数据、访问浏览器选项卡（tabs）、获取当前活动选项卡（activeTab）、浏览器通知（notifications）、设置插件激活规则（declarativeContent）、类似localStorage的存储（storage）等）<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"permissions"</span>: [</span><br><span class="line">        <span class="string">"http://xxx.com/api"</span></span><br><span class="line">        <span class="string">"tabs"</span>,</span><br><span class="line">        <span class="string">"activeTab"</span>,</span><br><span class="line">        <span class="string">"notifications"</span>,</span><br><span class="line">        <span class="string">"declarativeContent"</span>,</span><br><span class="line">        <span class="string">"storage"</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个"><a href="#定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个" class="headerlink" title="定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个"></a>定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个</h4><ul>
+<h4 id="与用户实现UI交互的功能主要有两个：browser-action、page-action-两者选择其中一个"><a href="#与用户实现UI交互的功能主要有两个：browser-action、page-action-两者选择其中一个" class="headerlink" title="与用户实现UI交互的功能主要有两个：browser_action、page_action 两者选择其中一个"></a>与用户实现UI交互的功能主要有两个：browser_action、page_action 两者选择其中一个</h4><ul>
 <li><p>browser_action 提供的功能面向所有网站，插件图标一直是激活的状态</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"browser_action"</span>: &#123;</span><br><span class="line">      <span class="string">"default_popup"</span>: <span class="string">"popup.html"</span>        <span class="comment">// 指定click插件图标时，展示的页面</span></span><br><span class="line">      <span class="string">"default_icon"</span>: <span class="string">"images/icon.png"</span>, <span class="comment">// 指定浏览器工具栏展示的插件的图标 </span></span><br><span class="line">      <span class="string">"default_title"</span>: <span class="string">"display tooltip"</span> <span class="comment">// 当鼠标悬浮在插件图片上方时，展示的文字，叫tooltip；如果没有这个配置选项，则悬浮时显示menifest.json中的name选项值</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -453,8 +455,52 @@
 </li>
 </ul>
 <h4 id="popup-html"><a href="#popup-html" class="headerlink" title="popup.html"></a>popup.html</h4><p>popup.html 是使用browser_action或者page_action 指定的default_popup选项，表示点击插件图标会触发的html资源，其与普通的html页面的区别就是不能使用内联script，其他都一样<br>it can contain links to stylesheets and script tags, but does not allow inline JavaScript.</p>
+<h4 id="Content-Script-对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome-API的权限，并且可以把信息传递给父级插件"><a href="#Content-Script-对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome-API的权限，并且可以把信息传递给父级插件" class="headerlink" title="Content Script 对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome API的权限，并且可以把信息传递给父级插件"></a>Content Script 对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome API的权限，并且可以把信息传递给父级插件</h4><ol>
+<li>content script工作在一个独立的空间，它使得不会访问和调用web page或者其他content script中定义的变量和函数，两者唯一共享的是DOM</li>
+<li><p>Content Script与Page action 或Browser action通信的方式是通过传递Message的方式，正确的机制应该是：</p>
 <ul>
-<li><p>options_page 设置插件的选项页面，配置了此选项后，在插件上鼠标右键时，会有一个‘选项’按钮，点击后会进入options_page对应的页面<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s6ny6sqgj20hs0bagm8.jpg" alt=""></p>
+<li>Page action 或Browser action 中的js使用<code>chrome.tabs.sendMessage()</code>发布一个请求信息，传递出去当前的tab页id及其他信息</li>
+<li><p>注意：从Page action 或Browser action发布消息到Content Script必须用<code>chrome.tabs.sendMessage()</code>，从Content Script发布简单的信息到Page action 或Browser action 可以使用<code>chrome.runtime.sendMessage()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chrome.tabs.sendMessage(</span><br><span class="line">    tabs[<span class="number">0</span>].id, <span class="comment">//当前激活的tab页id</span></span><br><span class="line">    &#123;<span class="attr">greeting</span>: <span class="string">"hello"</span>&#125;, <span class="comment">//需要传递的信息</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123; <span class="comment">//用来接收反馈的回调函数</span></span><br><span class="line">    <span class="built_in">console</span>.log(response.farewell);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Content Script完成初始化，设置<code>chrome.runtime.onMessage().addListener()</code>监听事件，等待另一侧请求信息的发布</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.onMessage.addListener(</span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">request, sender, sendResponse</span>) </span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(sender.tab ?</span><br><span class="line">                 <span class="string">"from a content script:"</span> + sender.tab.url :</span><br><span class="line">                 <span class="string">"from the extension"</span>);</span><br><span class="line">     <span class="keyword">if</span> (request.greeting == <span class="string">"hello"</span>)</span><br><span class="line">     sendResponse(&#123;<span class="attr">farewell</span>: <span class="string">"goodbye"</span>&#125;);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Content Script将信息通过Message发布订阅的方式，发布出去</p>
+</li>
+<li>Page action 或Browser action 中的js<code>chrome.tabs.sendMessage()</code>最后一个参数是一个回调函数，用来接收另一侧反馈回来的数据，最后同步到UI上<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.tabs.sendMessage()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Content script有两种注入方式：编程式动态注入、声明式注入</p>
+</li>
+<li><p>编程式动态注入：获取<code>activeTab</code>权限后，使用<code>chrome.tabs.executeScript()</code>来注入js代码片段，使用<code>chrome.tabs.insertCSS()</code>注入css代码片段</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//manifest.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"My extension"</span>,</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">"permissions"</span>: [</span><br><span class="line">    <span class="string">"activeTab"</span></span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>  在Page action 或Browser action 中的js中实行编程式动态注入content script，其访问和更改的就是web page上的DOM属性</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.onMessage.addListener(</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">message, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (message == “changeColor”)&#123;</span><br><span class="line">      chrome.tabs.executeScript(&#123;</span><br><span class="line">        code: <span class="string">'document.body.style.backgroundColor="orange"'</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br><span class="line"> <span class="comment">// 你也可以注入一个文件</span></span><br><span class="line"> chrome.runtime.onMessage.addListener(</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">message, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (message == “runContentScript”)&#123;</span><br><span class="line">      chrome.tabs.executeScript(&#123;</span><br><span class="line">        file: <span class="string">'contentScript.js'</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>声明式注入，在manifest.json中使用content_scripts来定义</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"My extension"</span>,</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">"content_scripts"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"matches"</span>: [<span class="string">"http://*.nytimes.com/*"</span>],</span><br><span class="line">        <span class="string">"css"</span>: [<span class="string">"myStyles.css"</span>],</span><br><span class="line">        <span class="string">"js"</span>: [<span class="string">"contentScript.js"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    ],</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>matches：必填 数组，用来匹配注入Content Script的页面地址。可以使用通配符来指代：’*’指代任意长度字符；’?’指代单个字符</li>
+<li>css：选填 数组，在页面的任何DOM创建和展示之前，按照数组中定义的顺序，依次注入</li>
+<li>js：选填 数组，按照数组中定义的顺序，依次注入</li>
+<li>run_at：Content Script注入的时机<ul>
+<li>如果是document_start, 文件将在所有CSS加载完毕，但是没有创建DOM并且没有运行任何脚本的时候注入</li>
+<li>如果是document_end，则文件将在创建完DOM之后，但还没有加载类似于图片或frame等的子资源前立刻注入</li>
+<li>如果是document_idle，浏览器会在document_end和发出window.onload事件之间的某个时机注入。具体的时机取决与文档加载的复杂度，为加快页面加载而优化</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"content_scripts"</span> : [&#123;</span><br><span class="line">      <span class="string">"matches"</span> : [<span class="string">"*://*/*"</span>],</span><br><span class="line">      <span class="string">"js"</span> : [<span class="string">"content.js"</span>, <span class="string">"jquery.js"</span>],</span><br><span class="line">      <span class="string">"css"</span> : [<span class="string">"style.css"</span>],</span><br><span class="line">      <span class="string">"run_at"</span> : <span class="string">"document_end"</span></span><br><span class="line">  &#125;],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>options_page 设置插件的选项页面，配置了此选项后，在插件上鼠标右键时，会有一个‘选项’按钮，点击后会进入options_page对应的页面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"options_page"</span>:<span class="string">"options.html"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0s6ny6sqgj20hs0bagm8.jpg" alt=""></p>
 </li>
 <li><p>chrome_url_overrides 设置可替换的chrome默认页面</p>
 <ul>
@@ -485,7 +531,8 @@ tab ( Tab )
 所创建的标签的细节，包含新标签的ID。
 </code></pre><p><br></p>
 <ol start="2">
-<li>chrome.tabs.executeScript(integer tabId, object details, function callback)<br>向页面注入JavaScript 脚本执行<br><strong>Parameters</strong><ol>
+<li><p>chrome.tabs.executeScript(integer tabId, object details, function callback)<br>向页面注入JavaScript 脚本执行<br><strong>Parameters</strong></p>
+<ol>
 <li>tabId ( optional integer )<br>运行脚本的标签ID；默认为当前窗口所选中的标签。</li>
 <li>details ( object )<br>要执行的脚本内容，可选code或者file，但不能同时选两者。<ul>
 <li>code ( optional string )<br>要执行的脚本代码。</li>
@@ -496,8 +543,21 @@ tab ( Tab )
 <li>callback ( optional function )<br>所有脚本执行后会被调用的回调。</li>
 </ol>
 </li>
+<li><p>chrome.tabs.query(object queryInfo, function callback)<br>获取经过特定过滤条件筛选的标签页信息，如果没有特定过滤条件则是获取所有标签页信息</p>
+<ol>
+<li><p>queryInfo 为特定的属性，用来对标签页进行过滤。<br> 常用的属性有：（所有属性均为boolean值）</p>
+<ul>
+<li>active 标签在他们的窗口中是否是激活状态</li>
+<li><p>currentWindow 标签是否在当前窗口</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chrome.tabs.query(&#123;</span><br><span class="line">    active:<span class="literal">true</span>,</span><br><span class="line">    currentWindow:<span class="literal">true</span></span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">tabs</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>callback 是获取到特定标签页信息后的回调函数，参数为标签的信息</p>
+<h4 id="chrome-contextMenus-当前页面，选中内容后右键展示的内容"><a href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容" class="headerlink" title="chrome.contextMenus 当前页面，选中内容后右键展示的内容"></a>chrome.contextMenus 当前页面，选中内容后右键展示的内容</h4><p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g0whlgg7g5j20ba0eiwl4.jpg" alt=""></p>
+</li>
 </ol>
-<h4 id="chrome-contextMenus-当前页面，选中内容后右键展示的内容"><a href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容" class="headerlink" title="chrome.contextMenus 当前页面，选中内容后右键展示的内容"></a>chrome.contextMenus 当前页面，选中内容后右键展示的内容</h4><ol>
+</li>
 <li>在manifest.json中设置权限<code>{&quot;permissions&quot;: [&quot;contextMenus&quot;, &quot;storage&quot;]}</code></li>
 <li>放在background.js中，初始化之后的回调函数中，使用<code>chrome.contextMenus.create({})</code>创建内容目录<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.onInstalled.addListener(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="comment">//...</span></span><br><span class="line">     chrome.contextMenus.create(&#123;</span><br><span class="line">         <span class="string">"id"</span>: <span class="string">"sampleContextMenu"</span>,</span><br><span class="line">         <span class="string">"title"</span>: <span class="string">"Sample Context Menu"</span>,</span><br><span class="line">         <span class="string">"contexts"</span>: [<span class="string">"selection"</span>]</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
 </li>
@@ -518,6 +578,7 @@ tab ( Tab )
 <li>切换到Source栏，即可看到browser_action或page_action 指定的资源，设置断点</li>
 <li>切换到Console栏，输入location.reload()，发现原有的页面重新进行了加载，同时browser_action或page_action 指定的资源也重新执行了一遍，并在设置的断点处停下来，等待debug</li>
 </ol>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://developer.chrome.com/extensions" target="_blank" rel="noopener">chrome扩展程序</a><br><a href="https://www.zhihu.com/question/20179805" target="_blank" rel="noopener">如何从零写一个Chrome扩展</a></p>
 
       
     </div>
@@ -721,7 +782,7 @@ tab ( Tab )
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件组成"><span class="nav-number">2.</span> <span class="nav-text">插件组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义插件的主要功能的选项有两个：browser-action、page-action-两者选择其中一个"><span class="nav-number">2.1.</span> <span class="nav-text">定义插件的主要功能的选项有两个：browser_action、page_action 两者选择其中一个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popup-html"><span class="nav-number">2.2.</span> <span class="nav-text">popup.html</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用到的Chrome-API"><span class="nav-number">3.</span> <span class="nav-text">常用到的Chrome API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-tabs"><span class="nav-number">3.1.</span> <span class="nav-text">chrome.tabs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容"><span class="nav-number">3.2.</span> <span class="nav-text">chrome.contextMenus 当前页面，选中内容后右键展示的内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">4.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件调试"><span class="nav-number">5.</span> <span class="nav-text">插件调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">5.1.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试步骤"><span class="nav-number">5.2.</span> <span class="nav-text">调试步骤</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件组成"><span class="nav-number">2.</span> <span class="nav-text">插件组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#与用户实现UI交互的功能主要有两个：browser-action、page-action-两者选择其中一个"><span class="nav-number">2.1.</span> <span class="nav-text">与用户实现UI交互的功能主要有两个：browser_action、page_action 两者选择其中一个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popup-html"><span class="nav-number">2.2.</span> <span class="nav-text">popup.html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Content-Script-对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome-API的权限，并且可以把信息传递给父级插件"><span class="nav-number">2.3.</span> <span class="nav-text">Content Script 对当前web页面注入扩展程序代码，也就是在当前web页面的上下文环境中，可以访问页面的DOM信息并且修改DOM，具有操作Chrome API的权限，并且可以把信息传递给父级插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用到的Chrome-API"><span class="nav-number">3.</span> <span class="nav-text">常用到的Chrome API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-tabs"><span class="nav-number">3.1.</span> <span class="nav-text">chrome.tabs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome-contextMenus-当前页面，选中内容后右键展示的内容"><span class="nav-number">3.2.</span> <span class="nav-text">chrome.contextMenus 当前页面，选中内容后右键展示的内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">4.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件调试"><span class="nav-number">5.</span> <span class="nav-text">插件调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">5.1.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试步骤"><span class="nav-number">5.2.</span> <span class="nav-text">调试步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
