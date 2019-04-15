@@ -319,6 +319,243 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/04/14/nodeJS-1/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanchong Zhang"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huanchong's Blog"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/14/nodeJS-1/" class="post-title-link" itemprop="url">nodeJS</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-14 12:49:38" itemprop="dateCreated datePublished" datetime="2019-04-14T12:49:38+08:00">2019-04-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-15 13:29:58" itemprop="dateModified" datetime="2019-04-15T13:29:58+08:00">2019-04-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="node-js简介"><a href="#node-js简介" class="headerlink" title="node.js简介"></a>node.js简介</h3><ul>
+<li>node.js不是一种独立语言，是一个可以让js在服务器端运行的平台</li>
+<li>区别与传统语言平台依靠多线程来实现高并发的设计思路，node采用单线程、异步式I/O、事件驱动式的程序设计模型</li>
+<li>node.js使用的JavaScript引擎为V8引擎，还使用了高效的 <strong>libev 和 libeio 库支持事件驱动和异步式 I/O</strong> 来代替传统平台的多线程模式，带来性能的提升（传统多线程模式对于 高并发的访问，一方面线程长期阻塞等待，另一方面为了应付新请求而不断增加线程，因此 会浪费大量系统资源，同时线程的增多也会占用大量的 CPU 时间来处理内存上下文切换， 而且还容易遭受低速连接攻击。）</li>
+<li>有别于php等语言，在使用php构建web服务时，必须外部依赖一个Nginx、Apache等http服务器，然后通过http服务区的模块加载或CGI调用，才能将php的执行结果呈现给用户；而node.js内置了http服务器模块，无需再额外搭建</li>
+<li>node.js可以调用c/c++代码，对于性能要求比较高的模块可以使用c/c++来实现<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g2242fwxptj20wm0mign9.jpg" alt=""></li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g224ukryq5j20l00gcdgz.jpg" alt=""></p>
+<p>node.js只在第一次运行时会读取文件内容，以后都会直接访问内存，也就是当文件实时改动时，不会触发重新编译文件内容，所以需要使用<strong>supervisor、pm2</strong>等工具，对node服务进行实时管理</p>
+<h3 id="异步式I-O-与事件驱动式编程"><a href="#异步式I-O-与事件驱动式编程" class="headerlink" title="异步式I/O 与事件驱动式编程"></a>异步式I/O 与事件驱动式编程</h3><h4 id="阻塞与线程"><a href="#阻塞与线程" class="headerlink" title="阻塞与线程"></a>阻塞与线程</h4><blockquote>
+<p>什么是阻塞(block)呢?线程在执行中如果遇到磁盘读写或网络通信(统称为 I/O 操作)， 通常要耗费较长的时间，这时操作系统会剥夺这个线程的 CPU 控制权，使其暂停执行，同 时将资源让给其他的工作线程，这种线程调度方式称为 阻塞。当 I/O 操作完毕时，操作系统 将这个线程的阻塞状态解除，恢复其对CPU的控制权，令其继续执行。这种 I/O 模式就是通 常的同步式 I/O(Synchronous I/O)或阻塞式 I/O (Blocking I/O)  </p>
+</blockquote>
+<blockquote>
+<p>异步式 I/O (Asynchronous I/O)或非阻塞式 I/O (Non-blocking I/O)则针对 所有 I/O 操作不采用阻塞的策略。<strong>当线程遇到 I/O 操作时，不会以阻塞的方式等待 I/O 操作 的完成或数据的返回，而只是将 I/O 请求发送给操作系统，继续执行下一条语句</strong>。当操作 系统完成 I/O 操作时，以<strong>事件的形式</strong>通知执行 I/O 操作的线程，线程会在特定时候处理这个 事件。为了处理异步 I/O，线程必须有事件循环，不断地检查有没有未处理的事件，依次予 以处理。</p>
+</blockquote>
+<h4 id="多线程与单线程的比较："><a href="#多线程与单线程的比较：" class="headerlink" title="多线程与单线程的比较："></a>多线程与单线程的比较：</h4><p>对于需要长时间计算的I/O处理操作</p>
+<ul>
+<li><p>多线程模式：如果想实现高并发，就必须开启多个线程<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g225j31u3mj20qu0oiaci.jpg" alt=""></p>
+</li>
+<li><p>单线程模式：I/O异步，通过事件方式通知线程，即可完成高并发<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g225kaxr3sj20po0swju4.jpg" alt=""></p>
+</li>
+</ul>
+<p>单线程事件驱动的异步式 I/O 比传统的多线程阻塞式 I/O 究竟好在哪里呢?</p>
+<ul>
+<li>简而言之， 异步式 I/O 就是少了多线程的开销。对操作系统来说，创建一个线程的代价是十分昂贵的， 需要给它分配内存、列入调度，同时在线程切换的时候还要执行内存换页，CPU 的缓存被 清空，切换回来的时候还要重新从内存中读取信息，破坏了数据的局部性。(基于多线程的模型也有相应的解决方案，如轻量级线程(lightweight thread)等。事件驱动的单线程异步模型与多线 程同步模型到底谁更好是一件非常有争议的事情，因为尽管消耗资源，后者的吞吐率并不比前者低)</li>
+<li>异步式编程的缺点在于不符合人们一般的程序设计思维，存在回调地狱的情况（使用async、promise等编写方式）<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g225r057v1j216k0ceada.jpg" alt=""></li>
+</ul>
+<h3 id="node-js的事件循环机制"><a href="#node-js的事件循环机制" class="headerlink" title="node.js的事件循环机制"></a>node.js的事件循环机制</h3><blockquote>
+<p>Node.js 程序由事件循环开始，到事件循环结束，所有的逻辑都是事件的回调函数，所以 Node.js 始终在事件循环中，程序入口就是 事件循环第一个事件的回调函数。事件的回调函数在执行的过程中，可能会发出 I/O 请求或 直接发射(emit)事件，执行完毕后再返回事件循环，事件循环会检查事件队列中有没有未 处理的事件，直到程序结束.</p>
+<p>与其他语言不同的是，Node.js 没有显式的事件循环，类似 Ruby 的 EventMachine::run() 的函数在 Node.js中是不存在的。Node.js的事件循环对开发者不可见，由libev库实现。libev支持多种类型的事件，如 ev_io、ev_timer、ev_signal、ev_idle 等，在 Node.js 中均被 EventEmitter 封装。libev 事件循环的每一次迭代，在 Node.js 中就是一次 Tick，libev 不 断检查是否有活动的、可供检测的事件监听器，直到检测不到时才退出事件循环，进程结束</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g22cm3qesvj20ps0s4q59.jpg" alt=""></p>
+<h3 id="npm包管理器"><a href="#npm包管理器" class="headerlink" title="npm包管理器"></a>npm包管理器</h3><h4 id="创建npm包"><a href="#创建npm包" class="headerlink" title="创建npm包"></a>创建npm包</h4><p>Node.js 根 据 CommonJS 规范实现了包机制，开发了 npm来解决包的发布和获取需求。<br>使用如下命令初始化创建npm包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure></p>
+<p>Node.js 的包是一个目录，其中包含一个 JSON 格式的包说明文件 package.json。严格符 合 CommonJS 规范的包应该具备以下特征:</p>
+<ul>
+<li>package.json 必须在包的顶层目录下; <ul>
+<li>作为npm包的描述性文件，其中常用的字段:</li>
+<li><strong>main</strong>:作为包模块的入口（Node.js 在调用某个包时，会首先检查包中 package.json 文件的 main 字段，将其作为包的接口模块，如果 package.json 或 main 字段不存在，会尝试寻找 index.js 或 index.node 作 为包的接口）</li>
+<li>name:包的名称</li>
+<li>description:包的简要说明</li>
+<li>version:版本字符串</li>
+<li>keywords:关键字数组，通常用于搜索</li>
+<li>maintainers:维护者数组，每个元素要包含 name、email (可选)、web (可选)字段</li>
+<li>contributors:贡献者数组，格式与maintainers相同。包的作者应该是贡献者数组的第一个元素</li>
+<li>bugs:提交bug的地址，可以是网址或者电子邮件地址</li>
+<li>licenses:许可证数组</li>
+<li>repositories:仓库托管地址数组</li>
+<li>dependencies:包的依赖，一个关联数组，由包名称和版本号组成</li>
+</ul>
+</li>
+<li>二进制文件应该在 bin 目录下;</li>
+<li>JavaScript 代码应该在 lib 目录下;</li>
+<li>文档应该在 doc 目录下;</li>
+<li>单元测试应该在 test 目录下。<br>Node.js 对包的要求并没有这么严格，只要顶层目录下有 package.json，并符合一些规范 即可。当然为了提高兼容性，我们还是建议你在制作包的时候，严格遵守 CommonJS 规范</li>
+</ul>
+<h4 id="本地模式与全局模式"><a href="#本地模式与全局模式" class="headerlink" title="本地模式与全局模式"></a>本地模式与全局模式</h4><p>全局模式的安装：</p>
+<blockquote>
+<p>npm [install/i] -g [package_name]</p>
+</blockquote>
+<blockquote>
+<p>为什么要使用全局模式呢?多数时候并不是因为许多程序都有可能用到它，为了减少多 重副本而使用全局模式，而是因为本地模式不会注册 PATH 环境变量。举例说明，我们安装 supervisor 是为了在命令行中运行它，譬如直接运行 supervisor script.js，这时就需要在 PATH 环境变量中注册 supervisor。npm 本地模式仅仅是把包安装到 node_modules 子目录下，其中 的 bin 目录没有包含在 PATH 环境变量中，不能直接在命令行中调用。而当我们使用全局模 式安装时，npm 会将包安装到系统目录，譬如 /usr/local/lib/node_modules/，同时 package.json 文 件中 bin 字段包含的文件会被链接到 /usr/local/bin/。/usr/local/bin/ 是在PATH 环境变量中默认 定义的，因此就可以直接在命令行中运行 supervisor script.js命令了</p>
+</blockquote>
+<p>使用全局模式安装的包并不能直接在 JavaScript 文件中用 require 获 得，因为 require 不会搜索 /usr/local/lib/node_modules/</p>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g22dbja4ptj217809emyq.jpg" alt=""><br>区别：</p>
+<ul>
+<li>当我们要把某个包作为工程运行时的一部分时，通过本地模式获取</li>
+<li>如果要 在命令行下使用，则使用全局模式安装</li>
+</ul>
+<h4 id="创建全局链接"><a href="#创建全局链接" class="headerlink" title="创建全局链接"></a>创建全局链接</h4><blockquote>
+<p>npm 提供了一个有趣的命令 npm link，它的功能是在本地包和全局包之间创建符号链 接。我们说过使用全局模式安装的包不能直接通过 require 使用，但通过 npm link命令 可以打破这一限制。举个例子，我们已经通过 npm install -g express 安装了 express， 5 这时在工程的目录下运行命令:<br><strong>npm link express</strong><br>./node_modules/express -&gt; /usr/local/lib/node_modules/express<br>我们可以在 node_modules 子目录中发现一个指向安装到全局的包的符号链接。通过这种方法，我们就可以把全局包当本地包来使用了</p>
+</blockquote>
+<blockquote>
+<p>除了将全局的包链接到本地以外，使用 npm link命令还可以将本地的包链接到全局。 使用方法是在包目录( package.json 所在目录)中运行 npm link 命令。如果我们要开发 一个包，利用这种方法可以非常方便地在不同的工程间进行调试和测试</p>
+</blockquote>
+<h5 id="具体使用案例："><a href="#具体使用案例：" class="headerlink" title="具体使用案例："></a>具体使用案例：</h5><p>现在有两个模块，npm-link-module为我们开发的npm包；npm-link-test为我们要使用上面的npm包来做测试<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd npm-link-module  //进入开发的npm包目录里</span><br><span class="line">npm link //将本地的包链接到全局</span><br><span class="line"></span><br><span class="line">cd npm-link-test  //进入到测试项目中</span><br><span class="line">npm link npm-link-module  //将全局包npm-link-module 链接到本地node_modules路径下，这样本地就可以使用require()引用了</span><br></pre></td></tr></table></figure></p>
+<h4 id="包的发布"><a href="#包的发布" class="headerlink" title="包的发布"></a>包的发布</h4><ul>
+<li>npm adduser 创建账号</li>
+<li>npm whoami 命令测验是否已经取得了账号</li>
+<li>npm publish 发布包 </li>
+<li>通过<a href="https://www.npmjs.com/" target="_blank" rel="noopener">https://www.npmjs.com/</a> 去搜索自己发布的包</li>
+<li>日后有更新时，更改package.json中的version版本，重新npm publish即可</li>
+<li>npm unpublish 取消已发布的包</li>
+</ul>
+<h3 id="node命令行调试-调试功能由-V8-提供"><a href="#node命令行调试-调试功能由-V8-提供" class="headerlink" title="node命令行调试(调试功能由 V8 提供)"></a>node命令行调试(调试功能由 V8 提供)</h3><p>使用node debug xxx.js 即可开启调试模式<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g22ef0cf5zj216s0x8dmr.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/03/05/chrome-extensions/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2006,7 +2243,7 @@ tab ( Tab )
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-18 12:00:42" itemprop="dateModified" datetime="2019-03-18T12:00:42+08:00">2019-03-18</time>
+                <time title="Modified: 2019-04-08 17:40:14" itemprop="dateModified" datetime="2019-04-08T17:40:14+08:00">2019-04-08</time>
               
             
           </span>
@@ -2057,8 +2294,8 @@ tab ( Tab )
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;;</span><br><span class="line"><span class="keyword">let</span> &#123; a &#125; = obj;</span><br><span class="line">obj.a.b = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.b) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h5 id="对象的扩展运算符"><a href="#对象的扩展运算符" class="headerlink" title="对象的扩展运算符"></a>对象的扩展运算符</h5><ul>
-<li><strong>这是ES2018引入的规则，之前是不支持的</strong></li>
+<h5 id="对象的扩展运算符与解构相结合"><a href="#对象的扩展运算符与解构相结合" class="headerlink" title="对象的扩展运算符与解构相结合"></a>对象的扩展运算符与解构相结合</h5><ul>
+<li><strong>对象的扩展运算符是ES2018引入的规则，之前是不支持的</strong></li>
 <li><p>扩展运算符的解构赋值也是浅拷贝</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;;</span><br><span class="line">  <span class="keyword">let</span> &#123; ...x &#125; = obj;</span><br><span class="line">  obj.a.b = <span class="number">3</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x.a.b) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -2083,217 +2320,6 @@ tab ( Tab )
 </li>
 </ol>
 <h4 id="函数参数解构"><a href="#函数参数解构" class="headerlink" title="函数参数解构"></a>函数参数解构</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setcookie</span>(<span class="params">name, value, &#123; secure, path, domain, expires= <span class="number">500</span> &#125;</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 但这样写有个问题，第三个解构的实参必须要传一个对象，否则解构的&#123; secure, path, domain, expires= 500 &#125; = undefined 会报错</span></span><br><span class="line">setcookie(<span class="string">'load'</span>,<span class="string">'123'</span>) <span class="comment">//报错</span></span><br><span class="line"></span><br><span class="line">更完善的写法是函数参数赋默认值</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setcookie</span>(<span class="params">name, value, &#123; secure, path, domain, expires= <span class="number">500</span> &#125; = &#123;&#125;</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/02/17/browser-process/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Huanchong Zhang"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huanchong's Blog"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/02/17/browser-process/" class="post-title-link" itemprop="url">浏览器的线程与进程</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-02-17 13:05:51" itemprop="dateCreated datePublished" datetime="2019-02-17T13:05:51+08:00">2019-02-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-02-18 14:43:10" itemprop="dateModified" datetime="2019-02-18T14:43:10+08:00">2019-02-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>作为前端工程师，我们的程序的大多数场景都是运行在浏览器环境中，所以今天也想聊一下浏览器中渲染我们页面的一些自己概念和原理</p>
-<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>进程和线程是操作系统里的知识，了解了进程和线程的概念，有助于理解浏览器的运行机制</p>
-<h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>进程是操作系统进行资源分配和调度的最小单位，电脑中每一个软件的运行都是一个进程，每个进程都有独立的一块内存，各个进程之间相互隔离。如果把cpu比作一个工厂的话，进程就相当于一个个独立的车间</p>
-<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>线程是程序执行中的一个单一的顺序控制流程，说白了就相当于是车间里的每个工人，每个人都有自己的分内工作，互相协同合作完成一个程序车间的正常运行</p>
-<h4 id="进程与线程的区别和关系"><a href="#进程与线程的区别和关系" class="headerlink" title="进程与线程的区别和关系"></a>进程与线程的区别和关系</h4><ol>
-<li>cpu中包含许多进程，一个进程包含一个或多个线程</li>
-<li>进程之间相互独立，同一进程下的多个线程之间共享进程的内存空间(包括代码段、数据集、堆等)及一些进程级的资源(如打开文件和信号)，但是有些共享内存空间同一时刻只允许一个线程运行(比如js引擎线程执行时，GUI渲染引擎就会被挂起)<h3 id="多进程与多线程"><a href="#多进程与多线程" class="headerlink" title="多进程与多线程"></a>多进程与多线程</h3></li>
-</ol>
-<ul>
-<li>多进程：只同一个时间里，计算机系统允许同时运行多个进程。比如计算机同时开着聊天工具和音乐软件，保证你能在同时听歌的情况下和好友聊天</li>
-<li>多线程：在一个进程中，有多个不同分工的线程同时运行，相互合作完成各自的任务(浏览器中运行的多个线程，共同完成页面的渲染展示)</li>
-</ul>
-<h3 id="浏览器的多进程架构"><a href="#浏览器的多进程架构" class="headerlink" title="浏览器的多进程架构"></a>浏览器的多进程架构</h3><p>在”更多工具” -&gt; “任务管理器”中可以查看当前浏览器中运行的进程<br>我们可以看到的但不限于以下几种：</p>
-<ul>
-<li>Browser主进程：协调、主控作用(浏览器的主进程，负责浏览器界面的显示、各个页面的管理、是所有其他类型进程的祖先、负责它们的创建和销毁等工作，它有且仅有一个)</li>
-<li>GPU进程：用于硬件加速，3D绘制(当且仅当 GPU 硬件加速打开的时候才会被创建，主要用于对 3D 图形加速调用的实现)<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09k86tal4j20ui0lm7ea.jpg" alt=""></li>
-<li>Renderer渲染进程：每个tab页的展示<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09keeue0tj20ui0lmgw9.jpg" alt=""></li>
-<li>第三方扩展插件进程<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g09ker79jkj20ui0lmtjg.jpg" alt=""></li>
-</ul>
-<p><strong>下面也主要介绍渲染进程：</strong><br>chrome浏览器每个tab页都是一个进程，使用多个进程来隔离页面，这样做的好处就是每个tab页互不影响，当一个tab崩溃的时候不会影响其他网页，同时进程之间是不共享资源和地址空间的，安全性也能得到更多的保障</p>
-<h4 id="浏览器内核"><a href="#浏览器内核" class="headerlink" title="浏览器内核"></a>浏览器内核</h4><p>又叫渲染引擎，也就是浏览器的渲染进程，负责对网页语法的解释(html\css\js)并最终渲染呈现给用户<br>常见的浏览器内核：</p>
-<ul>
-<li>Blink(chrome内核)</li>
-<li>Webkit(safari内核)</li>
-<li>Gecko(Firefox内核)<br>每一个tab页都会开启一个浏览器渲染引擎实例，也就是一个独立的浏览器渲染进程<br>浏览器的渲染进程(浏览器内核)又包含多个线程</li>
-</ul>
-<ol>
-<li>GUI渲染线程<ul>
-<li>负责解析HTML、CSS -&gt; 构建DOM树、CSSOM、Render树 -&gt; layout布局 -&gt; 绘制</li>
-<li>当js操作DOM等原因导致界面发生Repaint或Reflow时，都会触发GUI线程执行</li>
-<li>GUI渲染线程与JS引擎线程是互斥的，当JS引擎线程执行时，GUI渲染引擎会被挂起保存到一个队列里，当JS引擎线程空闲时，再开始执行</li>
-</ul>
-</li>
-<li>JavaScript引擎线程<ul>
-<li>又称为js内核，常用的是Google的V8引擎、火狐的JaegerMonkey引擎等</li>
-<li>解析JavaScript脚本，执行程序</li>
-<li>一个渲染引擎中只包含一个js引擎线程，同时JavaScript语言也是单线程模式，因为如果JavaScript是多线程的方式来操作这些UI DOM，则可能出现UI操作的冲突，这也就是为什么Web Worker API支持在主线程的基础上多开一个线程处理js逻辑，但不允许操作DOM的原因，并且有诸多限制，感兴趣的可以了解一下</li>
-<li>js代码作为一个个任务，由任务队列统一调度分配，JS引擎一直等待任务队列中任务到来，有任务过来时，JS引擎线程便开始执行</li>
-<li>因为JavaScript引擎线程会导致GUI渲染线程挂起的原因，常常会出现js阻塞页面渲染的现象，这是我们应该尽量避免的</li>
-</ul>
-</li>
-<li>事件触发线程<ul>
-<li>我们经常会用到的点击事件等</li>
-<li>当js引擎线程执行代码到点击事件时，浏览器会将该事件任务添加到事件触发线程中并开始监听点击事件，当对应的事件满足条件被触发时，该线程就把触发事件后的回调任务添加到task queue队列中，排队等待JS引擎线程来执行回调函数</li>
-</ul>
-</li>
-<li>定时触发器线程<ul>
-<li>setTimeOut\setTimeInterval</li>
-<li>当JS引擎线程执行到setTimeOut\setTimeInterval 关键词时，会把定时器任务添加到定时触发器线程中，定时触发器线程开始执行倒数，当倒数之间到了后，将回调任务添加到task queue任务队列中，等待JS引擎线程来执行</li>
-</ul>
-</li>
-<li>异步请求线程<ul>
-<li>当发送异步ajax请求时，浏览器会开启异步请求线程进行http请求</li>
-<li>当检测到请求状态发生变更后，将回调函数添加到task queue任务队列中，等待JS引擎线程来执行</li>
-</ul>
-</li>
-</ol>
-<h3 id="延伸扩展"><a href="#延伸扩展" class="headerlink" title="延伸扩展"></a>延伸扩展</h3><p><a href="https://segmentfault.com/a/1190000012925872" target="_blank" rel="noopener">从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理</a><br><a href="http://web.jobbole.com/83575/" target="_blank" rel="noopener">CSS3硬件加速也有坑</a><br><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="noopener">Tasks,microtasks</a><br><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="noopener">Event Loop</a></p>
-
           
         
       
@@ -2381,7 +2407,7 @@ tab ( Tab )
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
