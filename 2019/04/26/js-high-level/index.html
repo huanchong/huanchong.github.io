@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","width":350,"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="作用域 let\const 声明的变量，在块级作用域中可见 var声明的变量，在函数作用域中可见 最外层是全局作用域，node环境中全局对象为global，浏览器环境中全局对象为window 作用域链，当当前作用域内查找不到同名变量时，会去外层作用域中查找 函数作用域是静态作用域(词法作用域)，也就是说函数作用域的嵌套父子关系是在函数定义的时候，就确定了，而不是在函数调用的时候才确定1234567">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js高级特性">
+<meta property="og:url" content="http://huanchong.top/2019/04/26/js-high-level/index.html">
+<meta property="og:site_name" content="Huanchong&#39;s Blog">
+<meta property="og:description" content="作用域 let\const 声明的变量，在块级作用域中可见 var声明的变量，在函数作用域中可见 最外层是全局作用域，node环境中全局对象为global，浏览器环境中全局对象为window 作用域链，当当前作用域内查找不到同名变量时，会去外层作用域中查找 函数作用域是静态作用域(词法作用域)，也就是说函数作用域的嵌套父子关系是在函数定义的时候，就确定了，而不是在函数调用的时候才确定1234567">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g2i5w8jfmuj214k0tsq9o.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g2iled3rujj20y00fstas.jpg">
+<meta property="og:updated_time" content="2019-04-28T12:16:09.882Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js高级特性">
+<meta name="twitter:description" content="作用域 let\const 声明的变量，在块级作用域中可见 var声明的变量，在函数作用域中可见 最外层是全局作用域，node环境中全局对象为global，浏览器环境中全局对象为window 作用域链，当当前作用域内查找不到同名变量时，会去外层作用域中查找 函数作用域是静态作用域(词法作用域)，也就是说函数作用域的嵌套父子关系是在函数定义的时候，就确定了，而不是在函数调用的时候才确定1234567">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/e4d30300ly1g2i5w8jfmuj214k0tsq9o.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://huanchong.top/2019/04/26/js-high-level/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js高级特性 | Huanchong's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Huanchong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huanchong.top/2019/04/26/js-high-level/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanchong Zhang"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huanchong's Blog"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js高级特性
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-26 15:26:04" itemprop="dateCreated datePublished" datetime="2019-04-26T15:26:04+08:00">2019-04-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-28 20:16:09" itemprop="dateModified" datetime="2019-04-28T20:16:09+08:00">2019-04-28</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
+<li>let\const 声明的变量，在块级作用域中可见</li>
+<li>var声明的变量，在函数作用域中可见</li>
+<li>最外层是全局作用域，node环境中全局对象为global，浏览器环境中全局对象为window</li>
+<li>作用域链，当当前作用域内查找不到同名变量时，会去外层作用域中查找</li>
+<li>函数作用域是静态作用域(词法作用域)，也就是说函数作用域的嵌套父子关系是在函数定义的时候，就确定了，而不是在函数调用的时候才确定<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scope = <span class="string">'top'</span>;</span><br><span class="line"><span class="keyword">var</span> f1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(scope);</span><br><span class="line">&#125;;</span><br><span class="line">f1(); <span class="comment">// 输出 top</span></span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> scope = <span class="string">'f2'</span>; </span><br><span class="line">    f1();</span><br><span class="line">&#125;;</span><br><span class="line">f2(); <span class="comment">// 输出 top</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>当一个函数返回它内部定义的一个函数时，就产生了一个闭包， 闭包不但包括被返回的函数，还包括这个函数的定义环境<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> generateClosure = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> get = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        count ++;</span><br><span class="line">        <span class="keyword">return</span> count; </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> get; </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> counter1 = generateClosure(); </span><br><span class="line"><span class="keyword">var</span> counter2 = generateClosure(); </span><br><span class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">// 输出 1 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter2()); <span class="comment">// 输出 1 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">// 输出 2 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">// 输出 3 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter2()); <span class="comment">// 输出 2</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>上面这个例子解释了闭包是如何产生的:counter1 和 counter2 分别调用了 generate- Closure() 函数，生成了两个闭包的实例，它们内部引用的 count 变量分别属于各自的 运行环境。<strong>我们可以理解为，在 generateClosure() 返回 get 函数时，私下将 get 可 能引用到的 generateClosure() 函数的内部变量(也就是 count 变量)也返回了，并在内存中生成了一个副本</strong>，之后 generateClosure() 返回的函数的两个实例 counter1 和 counter2 就是相互独立的了。</p>
+</blockquote>
+<h4 id="闭包的用途：实现对象的私有成员"><a href="#闭包的用途：实现对象的私有成员" class="headerlink" title="闭包的用途：实现对象的私有成员"></a>闭包的用途：实现对象的私有成员</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> generateClosure = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>; <span class="comment">//私有变量</span></span><br><span class="line">    <span class="keyword">var</span> get = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        count ++;</span><br><span class="line">        <span class="keyword">return</span> count; </span><br><span class="line">        &#125;;</span><br><span class="line">    <span class="keyword">return</span> get;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> counter = generateClosure(); </span><br><span class="line"><span class="built_in">console</span>.log(counter()); <span class="comment">// 输出 1 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter()); <span class="comment">// 输出 2 </span></span><br><span class="line"><span class="built_in">console</span>.log(counter()); <span class="comment">// 输出 3</span></span><br></pre></td></tr></table></figure>
+<p>在函数中通过返回一个子函数，对外部暴露一个访问和更新内部变量的接口，外部不能直接访问函数作用域内的变量，完成了对变量私有化的隐藏</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><h4 id="访问对象属性成员方式"><a href="#访问对象属性成员方式" class="headerlink" title="访问对象属性成员方式"></a>访问对象属性成员方式</h4><ul>
+<li>点运算符（obj.a）</li>
+<li>关联数组（obj[‘a’]）,使用关联数组的优势是可以使用变量作为索引，这对于我们前期不知道对象属性key的时候非常有用<h4 id="上下文对象this"><a href="#上下文对象this" class="headerlink" title="上下文对象this"></a>上下文对象this</h4></li>
+<li>上下文对象就是 this 指针，即被调用函数所处的环境</li>
+<li>JavaScript 的任何函数都是被某个对象调用的，在最外部全局作用域中，调用它的是全局对象</li>
+<li><p>this 指针不属于某个函数，而是函数调用时所属的对象。也就是说谁调用的函数，this就指向谁</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someuser = &#123; </span><br><span class="line">    name: <span class="string">'Tom'</span>, </span><br><span class="line">    func: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name); </span><br><span class="line">      &#125;</span><br><span class="line">  &#125;; </span><br><span class="line">  <span class="keyword">var</span> foo = &#123; </span><br><span class="line">      name: <span class="string">'foobar'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  someuser.func(); <span class="comment">// 输出 Tom</span></span><br><span class="line"></span><br><span class="line">  foo.func = someuser.func; </span><br><span class="line">  foo.func(); <span class="comment">// 输出 foobar</span></span><br><span class="line"></span><br><span class="line">  name = <span class="string">'global'</span>;</span><br><span class="line">  func = someuser.func; </span><br><span class="line">  func(); <span class="comment">// 输出 global</span></span><br></pre></td></tr></table></figure>
+<p>在 JavaScript 中，本质上，函数类型的变量是指向这个函数实体的一个引用，在引用之间赋值不会对对象产生复制行为。我们可以通过函数的任何一个引用调用这个函数，不同之处仅仅在于上下文</p>
+<ul>
+<li>改变函数中上下文对象的方式：<ul>
+<li>call，以依次列举参数形式，传递给被调函数参数 func.call(thisArg[, arg1[, arg2[, …]]])，<strong>返回被调函数执行结果</strong></li>
+<li>apply，以传递数组的形式，传递给被调函数参数 func.apply(thisArg[, argsArray])，<strong>返回被调函数执行结果</strong></li>
+<li>bind，func.bind(thisArg[, arg1[, arg2[, …]]]) <strong>返回绑定新的上下文对象的函数</strong>，以后调用时都是固定绑定的上下文对象，会重复调用时适合使用bind方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>使用原型和构造函数初始化对象属性的区别：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原型方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">'Tom'</span>; </span><br><span class="line">Person.prototype.showName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name); </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(); </span><br><span class="line">person.showName();</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'Tom'</span>;</span><br><span class="line">    <span class="keyword">this</span>.showNmae = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(); </span><br><span class="line">person.showName();</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>继承方式不同：原型方式，子对象通过原型链可以直接访问父对象的属性；构造函数内定义的属性，子对象必须显式调用父对象才能访问</li>
+<li>原型定义的属性和方法是子对象实例共用一套，减少重复开销；构造函数内定义的属性，每次新建一个对象实例，都会在内存中重新创建一套，实例之间不共享</li>
+<li>对象的成员函数最好使用原型方式定义，可以减少内存开销；定义在构造函数内部，多个对象会重复创建，同时可能会有运行时闭包开销</li>
+<li>一般的变量属性成员，在构造函数中定义，保证每个实例对象数据的独立性，因为在原型上定义意味着所有实例共享这一个，任何对象的主动更改会影响到其他实例对象</li>
+</ol>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><ol>
+<li>JavaScript 中有两个特殊的对象: Object 与 Function，它们都是构造函数，用于生<br>成对象</li>
+<li>Object.prototype 是所有对象的祖先，Function.prototype 是所有函数的原型，包括构造函数</li>
+<li>JavaScript 中的对象分为三类，一类是用户创建的对象，一类是构造函数对象，一类是原型对象<ul>
+<li>用户创建的对象，即一般意义上用 new 语句显式构造获得的对象</li>
+<li>构造函数对象指的是普通的构造函数，即通过 new 调用生成普通对象的那个函数</li>
+<li>原型对象 特指构造函数 prototype 属性指向的对象</li>
+</ul>
+</li>
+<li>这三类对象中每一类都有一个 <strong>proto</strong> 属 性，它指向该对象的原型，从任何对象沿着它开始遍历都可以追溯到 Object.prototype</li>
+<li>构造函数对象有 prototype 属性，指向原型对象；通过该构造函数创建对象时，被创建的普通对象的 <strong>proto</strong> 属性将会指向构造函数的 prototype 属性，也就是该普通对象的原型对象</li>
+<li>原型对象有 constructor 属性，指向它对应的构造函数<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.prototype.name = <span class="string">'My Object'</span>; Foo.prototype.name = <span class="string">'Bar'</span>;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(obj.name); <span class="comment">// 输出 My Object</span></span><br><span class="line"><span class="built_in">console</span>.log(foo.name); <span class="comment">// 输出 Bar</span></span><br><span class="line"><span class="built_in">console</span>.log(foo.__proto__.name); <span class="comment">// 输出 Bar </span></span><br><span class="line"><span class="built_in">console</span>.log(foo.__proto__.__proto__.name); <span class="comment">// 输出 My Object </span></span><br><span class="line"><span class="built_in">console</span>.log(foo. __proto__.constructor.prototype.name); <span class="comment">// 输出 Bar</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g2i5w8jfmuj214k0tsq9o.jpg" alt=""></p>
+<ol>
+<li>在 JavaScript 中，继承是依靠一套叫做原型链(prototype chain)的机制实现的。</li>
+<li>属性 继承的本质就是一个对象可以访问到它的原型链上任何一个原型对象的属性</li>
+</ol>
+<h3 id="原型的深拷贝"><a href="#原型的深拷贝" class="headerlink" title="原型的深拷贝"></a>原型的深拷贝</h3><p>日常开发中，如果只需要复制基本的属性时(基本类型、对象、数组等，不包含函数与特殊对象new Date()、正则等)，使用JSON序列化再反序列化的方法是最便捷的方式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj))</span><br></pre></td></tr></table></figure></p>
+<h4 id="如果想要支持成员函数的拷贝："><a href="#如果想要支持成员函数的拷贝：" class="headerlink" title="如果想要支持成员函数的拷贝："></a>如果想要支持成员函数的拷贝：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.clone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> newObj = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> <span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(<span class="keyword">this</span>[i]) == <span class="string">'object'</span> || <span class="keyword">typeof</span>(<span class="keyword">this</span>[i]) == <span class="string">'function'</span>) &#123; </span><br><span class="line">        newObj[i] = <span class="keyword">this</span>[i].clone();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        newObj[i] = <span class="keyword">this</span>[i];</span><br><span class="line">    &#125; &#125;</span><br><span class="line">    <span class="keyword">return</span> newObj; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.clone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newArray = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(<span class="keyword">this</span>[i]) == <span class="string">'object'</span> || <span class="keyword">typeof</span>(<span class="keyword">this</span>[i]) == <span class="string">'function'</span>) &#123; </span><br><span class="line">        newArray[i] = <span class="keyword">this</span>[i].clone();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        newArray[i] = <span class="keyword">this</span>[i];</span><br><span class="line">    &#125; &#125;</span><br><span class="line">    <span class="keyword">return</span> newArray;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Function</span>.prototype.clone = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">var</span> newFun = <span class="function"><span class="keyword">function</span> <span class="title">newFun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>); <span class="comment">//这里构成了闭包</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> <span class="keyword">this</span>) &#123;</span><br><span class="line">    newFun[i] = <span class="keyword">this</span>[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newFun;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="循环引用的深拷贝"><a href="#循环引用的深拷贝" class="headerlink" title="循环引用的深拷贝"></a>循环引用的深拷贝</h4><ul>
+<li>使用JSON序列化反序列化会报错<br><img src="https://ws1.sinaimg.cn/large/e4d30300ly1g2iled3rujj20y00fstas.jpg" alt=""></li>
+<li>使用上面常规的递归方式会出现死循环，最后栈溢出<h4 id="解决方案：引入WeakMap结构"><a href="#解决方案：引入WeakMap结构" class="headerlink" title="解决方案：引入WeakMap结构"></a>解决方案：引入WeakMap结构</h4>WeakMap对象是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意的<br>遍历对象时使用WeakMap结构存储，遇到循环引用的对象，通过WeakMap.prototype.has(key)与WeakMap.prototype.get(key)来终止循环遍历问题<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObj</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">typeof</span> obj === <span class="string">'object'</span> || <span class="keyword">typeof</span> obj === <span class="string">'function'</span>) &amp;&amp; obj !== <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">obj, mapObj = new WeakMap(</span>)) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(mapObj.has(obj)) <span class="keyword">return</span> mapObj.get(obj)</span><br><span class="line">    <span class="keyword">let</span> cloneObj = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line">    mapObj.set(obj, cloneObj)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        cloneObj[key] = isObj(obj[key]) ? deepCopy(obj[key], mapObj) : obj[key];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cloneObj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/nodeJS-4/" rel="next" title="nodeJS番外篇">
+                <i class="fa fa-chevron-left"></i> nodeJS番外篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanchong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haunchong" title="GitHub &rarr; https://github.com/haunchong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:huanchong@gmail.com" title="E-Mail &rarr; mailto:huanchong@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包的用途：实现对象的私有成员"><span class="nav-number">2.1.</span> <span class="nav-text">闭包的用途：实现对象的私有成员</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">3.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#访问对象属性成员方式"><span class="nav-number">3.1.</span> <span class="nav-text">访问对象属性成员方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上下文对象this"><span class="nav-number">3.2.</span> <span class="nav-text">上下文对象this</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">4.</span> <span class="nav-text">原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number">4.1.</span> <span class="nav-text">原型链</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型的深拷贝"><span class="nav-number">5.</span> <span class="nav-text">原型的深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如果想要支持成员函数的拷贝："><span class="nav-number">5.1.</span> <span class="nav-text">如果想要支持成员函数的拷贝：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环引用的深拷贝"><span class="nav-number">5.2.</span> <span class="nav-text">循环引用的深拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案：引入WeakMap结构"><span class="nav-number">5.3.</span> <span class="nav-text">解决方案：引入WeakMap结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=523042017&auto=1&height=66"></iframe>
+    </div>
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  
+  <span class="author" itemprop="copyrightHolder">Huanchong Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
